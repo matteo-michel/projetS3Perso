@@ -1,20 +1,19 @@
 export class Book {
-    public isbn: string;
+    private _isbn: string;
     public name: string;
    public taken: boolean;
 
 
   constructor(isbn: string) {
-    this.isbn = isbn;
-  }
-
-  getIsbn(): string {
-    const dataToReturn = this.isbn;
-    return dataToReturn;
+    this._isbn = isbn;
   }
 
 
-   getName(): string {
+  get isbn(): string {
+    return this._isbn;
+  }
+
+  getName(): string {
     return this.name;
   }
 
@@ -23,6 +22,6 @@ export class Book {
   }
 
   setIsbn(isbn: string): void {
-    this.isbn = isbn;
+    this._isbn = isbn;
   }
 }

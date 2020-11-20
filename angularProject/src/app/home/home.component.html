@@ -1,2 +1,24 @@
-<p>home works!</p>
-<p>{{b.getIsbn()}}</p>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Login</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>
+        {{user.login}}
+      </td>
+      <td>
+        {{user.nom}}
+      </td>
+      <td>
+        {{user.prenom}}
+      </td>
+    </tr>
+  </tbody>
+
+</table>
+
