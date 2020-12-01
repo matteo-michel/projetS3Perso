@@ -19,6 +19,12 @@
       </td>
     </tr>
   </tbody>
-
 </table>
+
+<h4 *ngIf="sessions.length!=0">Sessions disponibles</h4>
+<app-sessions *ngFor="let s of sessions" [session]="s" (join)="joinSession($event)"></app-sessions>
+
+<h4 *ngIf="sessionsLogin.length!=0">Sessions Rejointes</h4>
+<app-registered-sessions *ngFor="let s of sessionsLogin" [session]="s" (quit)="quitSession($event)"></app-registered-sessions>
+
 

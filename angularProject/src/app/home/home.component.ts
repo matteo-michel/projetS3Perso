@@ -1,33 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../class/book';
 import {UserService} from '../services/user.service';
+import {SessionService} from '../services/session.service';
 import {User} from '../class/user';
+import {Session} from '../class/session';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [UserService]
+  providers: [UserService, SessionService]
 })
 export class HomeComponent implements OnInit {
+  login: string = localStorage.getItem('login');
   users: User[] = [];
-  constructor(private userService: UserService) { }
+  sessionsLogin: Session[] = [];
+  sessions: Session[] = [];
+
+  constructor(private userService: UserService, private sessionService: SessionService, private router: Router) {
+  }
 
   ngOnInit(): void {
+    if (!localStorage.getItem('login')) {
+      this.router.navigate(['/login']);
+    }
     this.userService.getAll().subscribe(
-      data => { //console.log(data);
-                const json = JSON.parse(JSON.stringify(data));
-                // console.log(json);
-                // console.log(this.book);
-                this.createUsersArray(json);
+      data => {
+        const json = JSON.parse(JSON.stringify(data));
+        this.createUsersArray(json);
 
-                // console.log(this.b);
       },
       err => console.error(err),
-      () => {console.log('done');
-             // console.log(this.b);
+      () => {
+        console.log();
+        // console.log(this.b);
       });
 
+    this.resetComponent();
   }
 
   createUsersArray(data: any): void {
@@ -37,4 +46,58 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  createSessionArray(data: any, sessions: Session[]): void {
+    data.forEach((s) => {
+      const session = new Session(s['idSession'], s['enonce'], s['deadline'], s['nomSession']);
+      sessions.push(session);
+    });
+  }
+
+  joinSession(idSession): void {
+    this.sessionService.join(localStorage.getItem('login'), idSession).subscribe(
+      data => {
+        this.resetComponent();
+      }
+    );
+  }
+
+  quitSession(idSession): void {
+    this.sessionService.quit(localStorage.getItem('login'), idSession).subscribe(
+      data => {
+        this.resetComponent();
+      }
+    );
+
+  }
+
+  getSessionLogin(): void {
+    this.sessionService.getByLogin(localStorage.getItem('login')).subscribe(
+      data => {
+        this.sessionsLogin = [];
+        const json = JSON.parse(JSON.stringify(data));
+        this.createSessionArray(json, this.sessionsLogin);
+      },
+      err => console.log(err),
+      () => {
+        console.log();
+      });
+  }
+
+  getSessions(): void {
+    this.sessionService.getAllAvailable(localStorage.getItem('login')).subscribe(
+      data => {
+        this.sessions = [];
+        const json = JSON.parse(JSON.stringify(data));
+        this.createSessionArray(json, this.sessions);
+      },
+      err => console.log(err),
+      () => {
+        console.log();
+      });
+  }
+
+  resetComponent(): void {
+    this.getSessionLogin();
+    this.getSessions();
+  }
 }

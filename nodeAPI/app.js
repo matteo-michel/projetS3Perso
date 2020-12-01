@@ -11,6 +11,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json())
 require("./routes/userRoute")(app);
+require("./routes/sessionRoute")(app);
 
 
 module.exports = app

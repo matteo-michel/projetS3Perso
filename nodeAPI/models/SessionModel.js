@@ -2,6 +2,9 @@ const mysql = require('./Model');
 
 const Session = function (session) {
     this.idSession = session.idSession;
+    this.enonce = session.enonce;
+    this.deadline = session.deadline;
+    this.nomSession = session.nomSession;
 }
 
 Session.getAll = result => {
@@ -16,22 +19,81 @@ Session.getAll = result => {
     });
 };
 
-Session.findByLogin = (p_id, result) => {
+Session.getById = (p_id, result) => {
     mysql.query(`SELECT * FROM session WHERE idSession = "${p_id}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        //console.log("Books: ", res);
+        result(null, res);
+    });
+};
+
+Session.getByLogin = (p_login, result) => {
+    mysql.query(`SELECT * FROM session s
+                JOIN participe p ON p.idSession = s.idSession
+                WHERE p.login = "${p_login}"`,
+        (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
-        if (res.length) {
-            console.log("found customer: ", res[0]);
-            result(null, res[0]);
-            return;
-        }
+        result(null, res);
 
         // not found Customer with the id
-        result({ kind: "not_found" }, null);
     });
+};
+
+Session.getAllWithoutRegister = (p_login, result) => {
+    mysql.query(`SELECT * FROM session
+                WHERE idSession
+                NOT IN(
+                SELECT s.idSession FROM session s
+                JOIN participe p ON p.idSession = s.idSession
+                WHERE p.login = "${p_login}");`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, res);
+
+            // not found Customer with the id
+        });
+};
+
+Session.removeByLogin = (p_login, p_idSession, result) => {
+    mysql.query(`DELETE FROM participe
+                WHERE login = "${p_login}"
+                AND idSession = "${p_idSession}"`,
+        (err) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+
+            // not found Customer with the id
+            result(null, null);
+        });
+};
+
+Session.addToSession = (p_login, p_idSession, result) => {
+    mysql.query(`INSERT INTO participe VALUES ("${p_login}","${p_idSession}")`,
+        (err) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+
+            // not found Customer with the id
+            result(null, null);
+        });
 };
 
 module.exports = Session;
