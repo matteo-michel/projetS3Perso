@@ -4,14 +4,25 @@ const jwtConfig = require('../config/tokenConfig');
 
 
 // Retrieve all Customers from the database.
+function print(){
+
+    console.log("hello")
+}
+
+
+
 exports.findAll = (req, res) => {
     User.getAll((err, data) => {
+
         if (err)
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving customers."
             });
-        else res.send(data);
+        else {  
+            res.send(data); 
+ 
+        }
     });
 };
 
