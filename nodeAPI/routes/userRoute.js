@@ -11,4 +11,6 @@ module.exports = app => {
     app.get("/api/users/:login", user.findByLogin);
 
     app.post("/api/users/login", user.checkLogin);
+
+    app.post("/api/users/register", user.register);
 };

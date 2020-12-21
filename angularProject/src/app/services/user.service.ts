@@ -25,4 +25,7 @@ export class UserService {
     return this.http.post('/api/users/login', {login, pwd: password}, httpOptions);
   }
 
+  public register(login: string, nom: string, prenom: string, password: string): Observable<any> {
+    return this.http.post('/api/users/register', {login, nom, prenom, pwd: password}, httpOptions);
+  }
 }

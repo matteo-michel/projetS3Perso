@@ -37,6 +37,20 @@ exports.findByLogin = (req, res) => {
     });
 };
 
+exports.register = (req, res) => {
+    User.register(req.body.login, req.body.nom, req.body.prenom, req.body.pwd,(err, data) => {
+        if (err)
+            res.status(403).send({
+                message:
+                    err.message || "Some error occurred while retrieving customers."
+            }); else {
+            res.status(200).send({
+                message: "Tout va bien"
+            });
+        }
+    });
+};
+
 exports.checkLogin = (req, res) => {
     User.checkLogin(req.body.login,req.body.pwd,(err, data) => {
         if (err)
