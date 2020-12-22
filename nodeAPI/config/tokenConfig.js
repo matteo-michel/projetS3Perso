@@ -1,3 +1,3 @@
 module.exports = {
-    password: "test"
+    secret_key: "123456789"
 }
