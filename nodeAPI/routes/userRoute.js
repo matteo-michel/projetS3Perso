@@ -13,4 +13,6 @@ module.exports = app => {
     app.post("/api/users/login", user.checkLogin);
 
     app.post("/api/users/register", user.register);
+
+    //console.log("test");
 };
