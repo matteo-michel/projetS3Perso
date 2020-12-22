@@ -1,0 +1,21 @@
+<div>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <p>
+      <label for="login_id">Login:</label>
+      <input type="text" name="login" id="login_id" ngModel required>
+    </p>
+    <p>
+      <label for="nom_id">Nom :</label>
+      <input type="text" name="nom" id="nom_id" ngModel required>
+    </p>
+    <p>
+      <label for="prenom_id">Prenom :</label>
+      <input type="text" name="prenom" id="prenom_id" ngModel required>
+    </p>
+    <p>
+      <label for="password_id">Mot de passe:</label>
+      <input type="password" name="password" id="password_id" ngModel required>
+    </p>
+    <p><button type="submit" class="btn btn-success" [disabled]="form.invalid">Envoyer</button></p>
+  </form>
+</div>

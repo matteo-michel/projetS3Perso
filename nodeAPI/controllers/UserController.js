@@ -4,14 +4,25 @@ const jwtConfig = require('../config/tokenConfig');
 
 
 // Retrieve all Customers from the database.
+function print(){
+
+    console.log("hello")
+}
+
+
+
 exports.findAll = (req, res) => {
     User.getAll((err, data) => {
+
         if (err)
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving customers."
             });
-        else res.send(data);
+        else {  
+            res.send(data); 
+ 
+        }
     });
 };
 
@@ -23,6 +34,20 @@ exports.findByLogin = (req, res) => {
                     err.message || "Some error occurred while retrieving customers."
             });
         else res.send(data);
+    });
+};
+
+exports.register = (req, res) => {
+    User.register(req.body.login, req.body.nom, req.body.prenom, req.body.pwd,(err, data) => {
+        if (err)
+            res.status(403).send({
+                message:
+                    err.message || "Some error occurred while retrieving customers."
+            }); else {
+            res.status(200).send({
+                message: "Tout va bien"
+            });
+        }
     });
 };
 

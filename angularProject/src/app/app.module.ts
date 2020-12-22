@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { RegisteredSessionsComponent } from './registered-sessions/registered-sessions.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
     HomeComponent,
     SessionsComponent,
     RegisteredSessionsComponent,
-    SessionDetailsComponent
+    SessionDetailsComponent,
+    RegisterComponent
   ],
     imports: [
         BrowserModule,
@@ -31,6 +33,10 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
           {
             path: 'login',
             component: LoginComponent
+          },
+          {
+            path: 'register',
+            component: RegisterComponent
           },
           {
             path: 'session/:id',

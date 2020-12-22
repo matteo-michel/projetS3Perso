@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import {User} from '../class/user';
-import {Router} from "@angular/router";
-import {AppComponent} from "../app.component";
+import {Router} from '@angular/router';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
+    console.log('sallut login');
     const login = form.value.login;
     const pwd = form.value.password;
     try {

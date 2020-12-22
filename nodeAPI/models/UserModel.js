@@ -41,12 +41,24 @@ User.checkLogin = (p_login, p_pwd, result) => {
     mysql.query(`SELECT * FROM utilisateur WHERE login = "${p_login}" AND password = "${p_pwd}"`, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
-        //console.log("Books: ", res);
+        result(null, res);
+    });
+}
+
+User.register = (p_login,p_nom, p_prenom, p_pwd, result) => {
+    mysql.query(`INSERT INTO utilisateur VALUES ("${p_login}", "${p_nom}", "${p_prenom}", "${p_pwd}", 0)`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
         result(null, res);
     });
 }
 
 module.exports = User;
+
+
