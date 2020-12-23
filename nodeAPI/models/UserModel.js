@@ -1,4 +1,5 @@
 const mysql = require('./Model');
+var passwordHash = require('password-hash');
 
 const User = function (user) {
     this.login = user.login;
@@ -38,7 +39,7 @@ User.findByLogin = (p_login, result) => {
 };
 
 User.checkLogin = (p_login, p_pwd, result) => {
-    mysql.query(`SELECT * FROM utilisateur WHERE login = "${p_login}" AND password = "${p_pwd}"`, (err, res) => {
+    mysql.query(`SELECT * FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -49,7 +50,8 @@ User.checkLogin = (p_login, p_pwd, result) => {
 }
 
 User.register = (p_login,p_nom, p_prenom, p_pwd, result) => {
-    mysql.query(`INSERT INTO utilisateur VALUES ("${p_login}", "${p_nom}", "${p_prenom}", "${p_pwd}", 0)`, (err, res) => {
+    var hashedPassword = passwordHash.generate(p_pwd);
+    mysql.query(`INSERT INTO utilisateur VALUES ("${p_login}", "${p_nom}", "${p_prenom}", "${hashedPassword}", 0)`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -60,5 +62,7 @@ User.register = (p_login,p_nom, p_prenom, p_pwd, result) => {
 }
 
 module.exports = User;
+
+
 
 

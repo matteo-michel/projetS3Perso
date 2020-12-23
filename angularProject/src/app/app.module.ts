@@ -10,6 +10,7 @@ import { SessionsComponent } from './sessions/sessions.component';
 import { RegisteredSessionsComponent } from './registered-sessions/registered-sessions.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
 import { RegisterComponent } from './register/register.component';
+import { CreateSessionComponent } from './create-session/create-session.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterComponent } from './register/register.component';
     SessionsComponent,
     RegisteredSessionsComponent,
     SessionDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreateSessionComponent
   ],
     imports: [
         BrowserModule,

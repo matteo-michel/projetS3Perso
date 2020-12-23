@@ -1,6 +1,8 @@
 const User = require("../models/UserModel");
 const jwt = require('jsonwebtoken');
 const jwtConfig = require('../config/tokenConfig');
+const {verify} = require("jsonwebtoken");
+const passwordHash = require('password-hash');
 
 
 // Retrieve all Customers from the database.
@@ -13,7 +15,6 @@ function print(){
 
 exports.findAll = (req, res) => {
     User.getAll((err, data) => {
-
         if (err)
             res.status(500).send({
                 message:
@@ -58,7 +59,7 @@ exports.checkLogin = (req, res) => {
                 message:
                     err.message || "Some error occurred while retrieving customers."
             });
-        else if (data.length !== 0) {
+        else if (data.length !== 0 && passwordHash.verify(req.body.pwd, data[0]['password'])) {
             res.status(200).json({
                 token: jwt.sign(
                     { login: req.body.login},
@@ -66,10 +67,9 @@ exports.checkLogin = (req, res) => {
                     { expiresIn: '24h' }
                 )
             });
-            //res.send(data);
         } else {
             res.status(403).send({
-                message: "Mauvais mot de passe"
+                message: "Le login ou le mot de passe est incorrect !"
             });
         }
     });
