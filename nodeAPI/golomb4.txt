@@ -1,0 +1,10 @@
+- Complete search - 8 628 solution(s) found.
+	Model[golomb4]
+	Solutions: 8 628
+	Building time : 0,059s
+	Resolution time : 0,334s
+	Nodes: 17 259 (51 748,0 n/s) 
+	Backtracks: 17 263
+	Backjumps: 0
+	Fails: 4
+	Restarts: 0

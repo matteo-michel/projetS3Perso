@@ -54,6 +54,7 @@ exports.register = (req, res) => {
 
 exports.checkLogin = (req, res) => {
     User.checkLogin(req.body.login,req.body.pwd,(err, data) => {
+        console.log(data);
         if (err)
             res.status(500).send({
                 message:
@@ -62,9 +63,9 @@ exports.checkLogin = (req, res) => {
         else if (data.length !== 0 && passwordHash.verify(req.body.pwd, data[0]['password'])) {
             res.status(200).json({
                 token: jwt.sign(
-                    { login: req.body.login},
-                    jwtConfig.password,
-                    { expiresIn: '24h' }
+                    { login: data.login},
+                    jwtConfig.secret_key,
+                    { expiresIn: '24h'}
                 )
             });
         } else {

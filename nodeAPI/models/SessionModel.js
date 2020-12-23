@@ -43,7 +43,6 @@ Session.getByLogin = (p_login, result) => {
         }
         result(null, res);
 
-        // not found Customer with the id
     });
 };
 
