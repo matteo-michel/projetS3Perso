@@ -2,8 +2,8 @@
 	Model[golomb4]
 	Solutions: 8 628
 	Building time : 0,059s
-	Resolution time : 0,334s
-	Nodes: 17 259 (51 748,0 n/s) 
+	Resolution time : 0,330s
+	Nodes: 17 259 (52 221,2 n/s) 
 	Backtracks: 17 263
 	Backjumps: 0
 	Fails: 4

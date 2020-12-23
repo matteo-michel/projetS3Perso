@@ -4,7 +4,8 @@ module.exports = app => {
     app.get("/api/parse", function (req, res) {
         const { exec } = require("child_process");
         const filename = "Golomb.jar";
-        exec("java -jar ./jar/" + filename +  " -m 4", (error, stdout, stderr) => {
+        const arg = 4;
+        exec("java -jar ./jar/" + filename +  " -m " + arg, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
@@ -14,7 +15,7 @@ module.exports = app => {
                 return;
             }
             console.log(`stdout: ${stdout}`);
-            parser.parse(req, res, "golomb4.txt");
+            parser.parse(req, res, "golomb" + arg +".txt");
         });
     });
 

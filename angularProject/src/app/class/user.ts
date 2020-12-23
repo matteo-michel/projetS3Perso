@@ -2,7 +2,7 @@ export class User {
 
   public login: string;
   public nom: string;
-  public  prenom: string;
+  public prenom: string;
   public password: string;
 
   constructor(login: string, nom: string, prenom: string, password: string) {

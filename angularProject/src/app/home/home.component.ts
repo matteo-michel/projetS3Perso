@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
       err => console.error(err),
       () => {
         console.log();
-        // console.log(this.b);
       });
 
     this.resetComponent();

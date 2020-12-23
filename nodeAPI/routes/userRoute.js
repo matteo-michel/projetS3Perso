@@ -14,5 +14,4 @@ module.exports = app => {
 
     app.post("/api/users/register", user.register);
 
-    //console.log("test");
 };
