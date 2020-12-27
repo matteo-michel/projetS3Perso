@@ -1,10 +1,5 @@
 module.exports = app => {
     const user = require("../controllers/UserController.js");
-
-    // Retrieve all Customers
-    app.post("/api/parse", function (req, res) {
-        res.send('Wiki home page');
-      });
       
     app.get("/api/users", user.findAll);
 

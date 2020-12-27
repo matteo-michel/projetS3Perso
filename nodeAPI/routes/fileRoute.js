@@ -1,6 +1,7 @@
 module.exports = app => {
     const parser = require("../controllers/parseController");
-    // Retrieve all Customers
+    const controller = require("../controllers/fileController");
+
     app.get("/api/parse", function (req, res) {
         const { exec } = require("child_process");
         const filename = "Golomb.jar";
@@ -18,6 +19,8 @@ module.exports = app => {
             parser.parse(req, res, "golomb" + arg +".txt");
         });
     });
+    app.post("/api/upload", controller.upload);
+    app.get("/api/files", controller.getListFiles);
 
 
 };

@@ -11,6 +11,7 @@ import { RegisteredSessionsComponent } from './registered-sessions/registered-se
 import { SessionDetailsComponent } from './session-details/session-details.component';
 import { RegisterComponent } from './register/register.component';
 import { CreateSessionComponent } from './create-session/create-session.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CreateSessionComponent } from './create-session/create-session.componen
     RegisteredSessionsComponent,
     SessionDetailsComponent,
     RegisterComponent,
-    CreateSessionComponent
+    CreateSessionComponent,
+    UploadComponent
   ],
     imports: [
         BrowserModule,
@@ -43,6 +45,10 @@ import { CreateSessionComponent } from './create-session/create-session.componen
           {
             path: 'session/:id',
             component: SessionDetailsComponent
+          },
+          {
+            path: 'upload',
+            component: UploadComponent
           }
         ])
     ],
