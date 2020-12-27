@@ -1,1 +1,17 @@
-<p>create-session works!</p>
+<div>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <p>
+      <label for="nomSession_id">Nom de Session:</label>
+      <input type="text" name="nomSession" id="nomSession_id" ngModel required>
+    </p>
+    <p>
+      <label for="enonce_id">Enoncé :</label>
+      <input type="text" name="enonce" id="enonce_id" ngModel required>
+    </p>
+    <p>
+      <label for="deadline_id">Deadline :</label>
+      <input type="date" name="deadline" id="deadline_id" ngModel required>
+    </p>
+    <p><button type="submit" class="btn btn-success" [disabled]="form.invalid">Envoyer</button></p>
+  </form>
+</div>

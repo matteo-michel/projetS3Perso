@@ -49,6 +49,10 @@ import { UploadComponent } from './upload/upload.component';
           {
             path: 'upload',
             component: UploadComponent
+          },
+          {
+            path: 'addSession',
+            component: CreateSessionComponent
           }
         ])
     ],

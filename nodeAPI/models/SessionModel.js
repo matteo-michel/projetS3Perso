@@ -95,4 +95,17 @@ Session.addToSession = (p_login, p_idSession, result) => {
         });
 };
 
+
+Session.addSession = (p_enonce, p_deadline,p_nomSession,result) => {
+    mysql.query(`INSERT INTO session VALUES (0,"${p_enonce}","${p_deadline}","${p_nomSession}")`,
+        (err) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, null);
+        });
+};
+
 module.exports = Session;

@@ -57,4 +57,7 @@ export class SessionService {
     return this.session[0];
   }
 
+  public addSession(enonce: string, deadline: string, nomSession: string): Observable<any> {
+    return this.http.post('/api/sessions/addSession', {enonce, deadline, nomSession}, httpOptions);
+  }
 }

@@ -14,4 +14,6 @@ module.exports = app => {
 
     app.get("/api/sessions/join/:login&:idSession", session.addToSession);
 
+    app.post("/api/sessions/addSession", session.addSession);
+
 };

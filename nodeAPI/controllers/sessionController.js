@@ -71,4 +71,18 @@ exports.addToSession = (req, res) => {
     });
 };
 
+exports.addSession = (req, res) => {
+    Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession,(err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            }); else {
+            res.status(200).send({
+                message: "Session ajoute avec succes"
+            });
+        }
+    });
+}
+
 
