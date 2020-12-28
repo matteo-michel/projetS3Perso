@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../services/session.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {AppComponent} from "../app.component";
-import {UserService} from "../services/user.service";
+import {AppComponent} from '../app.component';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-create-session',
@@ -16,15 +16,17 @@ export class CreateSessionComponent implements OnInit {
   cookie: String = '';
   isAdmin = 0;
 
-  constructor(private sessionService: SessionService, private userService:UserService, private router: Router) { }
+  constructor(private sessionService: SessionService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     }
+    console.log('onignit');
     this.userService.isAdmin(localStorage.getItem('token')).subscribe(
       (data) => {
-          this.isAdmin = data['admin'];
+          this.isAdmin = data.admin;
+
       },
       err => {},
       () => {this.testAdmin(this.isAdmin); });

@@ -4,7 +4,7 @@ import {SessionService} from '../services/session.service';
 import {User} from '../class/user';
 import {Session} from '../class/session';
 import {Router} from '@angular/router';
-import {TokenStorageService} from "../services/token-storage.service";
+import {TokenStorageService} from '../services/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
   sessionsLogin: Session[] = [];
   sessions: Session[] = [];
 
-  constructor(private userService: UserService, private sessionService: SessionService, private router: Router, private tokenStorage: TokenStorageService) {
+  constructor(private userService: UserService, private sessionService: SessionService,
+              private router: Router, private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit(): void {

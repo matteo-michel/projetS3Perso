@@ -61,7 +61,7 @@ exports.checkLogin = (req, res) => {
             });
         else if (data.length !== 0 && passwordHash.verify(req.body.pwd, data[0]['password'])) {
             const token = jwt.sign(
-                { login: data[0].login, role: data[0].admin},
+                { login: data[0].login},
                 jwtConfig.secret_key
             );
             res.status(200).json({

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {TokenStorageService} from "./token-storage.service";
+import {TokenStorageService} from './token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
@@ -31,6 +31,6 @@ export class UserService {
   }
 
   public isAdmin(token: string): Observable<any> {
-    return of(this.http.post('/api/user/admin', {token}, this.tokenService.getHttpOption()));
+    return (this.http.post('/api/user/admin', {token}, this.tokenService.getHttpOption()));
   }
 }
