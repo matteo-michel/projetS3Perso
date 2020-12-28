@@ -1,6 +1,7 @@
 module.exports = app => {
     const parser = require("../controllers/parseController");
     const controller = require("../controllers/fileController");
+    const auth = require("../middleware/auth");
 
     app.get("/api/parse", function (req, res) {
         const { exec } = require("child_process");
@@ -15,7 +16,7 @@ module.exports = app => {
                 console.log(`stderr: ${stderr}`);
                 return;
             }
-            console.log(`stdout: ${stdout}`);
+            //console.log(`stdout: ${stdout}`);
             parser.parse(req, res, "golomb" + arg +".txt");
         });
     });
