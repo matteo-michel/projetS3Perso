@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('login')) {
+    if (localStorage.getItem('token')) {
       this.isLogin = true;
     } else {
       this.router.navigate(['/login']);
@@ -21,12 +21,12 @@ export class AppComponent implements OnInit{
   }
 
   logout(): void {
-    localStorage.removeItem('login');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
   isConnected(): boolean {
-    if (localStorage.getItem('login')) {
+    if (localStorage.getItem('token')) {
       return true;
     } else { return false; }
   }

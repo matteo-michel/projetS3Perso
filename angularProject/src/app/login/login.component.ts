@@ -27,18 +27,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
-    console.log('sallut login');
     const login = form.value.login;
     const pwd = form.value.password;
     try {
       this.userService.checkLogin(login, pwd).subscribe(
         data => {
-          const payload = JSON.parse(atob(data.token.split('.')[1]));
-          console.log(payload);
-          localStorage.setItem('login', payload.login);
+          localStorage.setItem('token', data.token);
           this.connected = true;
           this.appComponent.isLogin = true;
-    },
+        },
         err => console.log('Mauvais mot de passe !'),
         () => {
           this.router.navigate(['/']);

@@ -1,7 +1,9 @@
 const readline = require('readline');
 const fs = require('fs');
 
-let data = [];
+let data = {};
+var number;
+var match;
 exports.parse = (req, res, filename) => {
     const readInterface = readline.createInterface({
         input: fs.createReadStream(filename),
@@ -10,25 +12,24 @@ exports.parse = (req, res, filename) => {
     readInterface.on('line',  function (line){
         const array =['Solutions','Fails','Resolution time','Building time','Nodes'];
         line = line.replace('�','');
-        const match = array.filter(obj => line.startsWith(obj,1));
-        const number = line.replace( /^\D+/g, '');
+
+        if(line.startsWith("Nodes",1)) {
+            const buffer = line.replace( /[^((\d)|(,))]/g, '');
+            number = buffer.replace(/\D.*/g, '')
+            match = "Nodes";
+        } else {
+            match = array.filter(obj => line.startsWith(obj,1));
+            number = line.replace( /[^((\d)|(,))]/g, '');
+        }
         if(match.length > 0) {
-            const donneeFinal = match + ":" + number;
-            data.push(donneeFinal);
+            data[match] = number;
         }
 
-
-    /*  function(line) {
-      if(line.includes("Solutions")) {
-          line = line.replace('�','');
-          const number = line.replace( /^\D+/g, '');
-          data.push(number);
-      }*/
     }).on('close', () => {
-        console.log(data)
+        //console.log(data)
         res.send(data);
         readInterface.close();
-        data = [];
+        data = {};
     });
 
 

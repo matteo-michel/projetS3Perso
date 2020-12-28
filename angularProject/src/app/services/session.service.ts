@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Session} from "../class/session";
+import {Session} from '../class/session';
+import {TokenStorageService} from "./token-storage.service";
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-};
 
 @Injectable({
   providedIn: 'root'
@@ -15,31 +13,31 @@ export class SessionService {
   sub;
   session: Session[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenStorageService) {}
 
   public getAll(): Observable<any> {
-    return this.http.get('/api/sessions', httpOptions);
+    return this.http.get('/api/sessions', this.tokenService.getHttpOption());
   }
 
   public getAllAvailable(login: string): Observable<any> {
-    return this.http.get('/api/sessions/available/' + login, httpOptions);
+    return this.http.get('/api/sessions/available/' + login, this.tokenService.getHttpOption());
   }
 
   public getByLogin(login: string): Observable<any> {
-    return this.http.get('/api/sessions/' + login, httpOptions);
+    return this.http.get('/api/sessions/' + login, this.tokenService.getHttpOption());
   }
 
   public getById(id: number): Observable<any> {
-    return this.http.get('/api/session/' + id, httpOptions);
+    return this.http.get('/api/session/' + id, this.tokenService.getHttpOption());
   }
 
 
   public quit(login: string, idSession: number): Observable<any> {
-    return  this.http.get('/api/sessions/quit/' + login + '&' + idSession, httpOptions);
+    return this.http.post('/api/sessions/quit/', {token: login, id: idSession}, this.tokenService.getHttpOption());
   }
 
   public join(login: string, idSession: number): Observable<any> {
-    return this.http.get('/api/sessions/join/' + login + '&' + idSession, httpOptions);
+    return this.http.post('/api/sessions/join/', {token: login, id: idSession}, this.tokenService.getHttpOption());
   }
 
   public getSession(id: number): Session {
@@ -58,6 +56,6 @@ export class SessionService {
   }
 
   public addSession(enonce: string, deadline: string, nomSession: string): Observable<any> {
-    return this.http.post('/api/sessions/addSession', {enonce, deadline, nomSession}, httpOptions);
+    return this.http.post('/api/sessions/addSession', {enonce, deadline, nomSession}, this.tokenService.getHttpOption());
   }
 }

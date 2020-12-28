@@ -48,9 +48,9 @@ exports.findAllWithoutRegistered = (req, res) => {
 };
 
 exports.removeByLogin = (req, res) => {
-    Session.removeByLogin(req.params.login,req.params.idSession,(err, data) => {
+    if(!req.auth) return res.status(401).send();
+    Session.removeByLogin(req.auth.login,req.body.id,(err, data) => {
         if (err) {
-
             res.status(500).send({
                 message:
                     err.message || "Some error occurred."
@@ -61,7 +61,9 @@ exports.removeByLogin = (req, res) => {
 };
 
 exports.addToSession = (req, res) => {
-    Session.addToSession(req.params.login,req.params.idSession,(err, data) => {
+    if(!req.auth) return res.status(401).send();
+    console.log(req.auth)
+    Session.addToSession(req.auth.login,req.body.id,(err, data) => {
         if (err) {
             res.status(500).send({
                 message:

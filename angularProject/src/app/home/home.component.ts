@@ -4,6 +4,7 @@ import {SessionService} from '../services/session.service';
 import {User} from '../class/user';
 import {Session} from '../class/session';
 import {Router} from '@angular/router';
+import {TokenStorageService} from "../services/token-storage.service";
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,11 @@ export class HomeComponent implements OnInit {
   sessionsLogin: Session[] = [];
   sessions: Session[] = [];
 
-  constructor(private userService: UserService, private sessionService: SessionService, private router: Router) {
+  constructor(private userService: UserService, private sessionService: SessionService, private router: Router, private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('login')) {
+    if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     }
     this.userService.getAll().subscribe(
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
   }
 
   joinSession(idSession): void {
-    this.sessionService.join(localStorage.getItem('login'), idSession).subscribe(
+    this.sessionService.join(localStorage.getItem('token'), idSession).subscribe(
       data => {
         this.resetComponent();
       }
@@ -61,7 +62,7 @@ export class HomeComponent implements OnInit {
   }
 
   quitSession(idSession): void {
-    this.sessionService.quit(localStorage.getItem('login'), idSession).subscribe(
+    this.sessionService.quit(this.tokenStorage.getLogin(), idSession).subscribe(
       data => {
         this.resetComponent();
       }
@@ -70,7 +71,7 @@ export class HomeComponent implements OnInit {
   }
 
   getSessionLogin(): void {
-    this.sessionService.getByLogin(localStorage.getItem('login')).subscribe(
+    this.sessionService.getByLogin(this.tokenStorage.getLogin()).subscribe(
       data => {
         this.sessionsLogin = [];
         const json = JSON.parse(JSON.stringify(data));
@@ -83,7 +84,7 @@ export class HomeComponent implements OnInit {
   }
 
   getSessions(): void {
-    this.sessionService.getAllAvailable(localStorage.getItem('login')).subscribe(
+    this.sessionService.getAllAvailable(this.tokenStorage.getLogin()).subscribe(
       data => {
         this.sessions = [];
         const json = JSON.parse(JSON.stringify(data));

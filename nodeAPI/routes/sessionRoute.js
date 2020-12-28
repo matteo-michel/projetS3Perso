@@ -1,5 +1,6 @@
 module.exports = app => {
     const session = require("../controllers/sessionController");
+    const auth = require("../middleware/auth");
 
     // Retrieve all Customers
     app.get("/api/sessions", session.findAll);
@@ -10,9 +11,9 @@ module.exports = app => {
 
     app.get("/api/session/:id", session.getById);
 
-    app.get("/api/sessions/quit/:login&:idSession", session.removeByLogin);
+    app.post("/api/sessions/quit/", session.removeByLogin);
 
-    app.get("/api/sessions/join/:login&:idSession", session.addToSession);
+    app.post("/api/sessions/join/", session.addToSession);
 
     app.post("/api/sessions/addSession", session.addSession);
 
