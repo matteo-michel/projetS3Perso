@@ -28,7 +28,6 @@ User.findByLogin = (p_login, result) => {
             return;
         }
         if (res.length) {
-            console.log("found customer: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -52,6 +51,17 @@ User.checkLogin = (p_login, p_pwd, result) => {
 User.register = (p_login,p_nom, p_prenom, p_pwd, result) => {
     var hashedPassword = passwordHash.generate(p_pwd);
     mysql.query(`INSERT INTO utilisateur VALUES ("${p_login}", "${p_nom}", "${p_prenom}", "${hashedPassword}", 0)`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
+User.isAdmin = (p_login, result) => {
+    mysql.query(`SELECT admin FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

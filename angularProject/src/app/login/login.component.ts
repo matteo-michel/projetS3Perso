@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('login')) {
-      this.cookie = localStorage.getItem('login');
+    if (localStorage.getItem('token')) {
+      this.cookie = localStorage.getItem('token');
       this.connected = true;
       this.router.navigate(['/']);
     }

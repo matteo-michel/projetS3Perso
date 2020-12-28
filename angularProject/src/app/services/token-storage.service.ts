@@ -15,4 +15,5 @@ export class TokenStorageService {
   public getHttpOption() {
     return {headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Authorization': 'Bearer ' + localStorage.getItem('token')})};
   }
+
 }

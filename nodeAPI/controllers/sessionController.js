@@ -62,7 +62,6 @@ exports.removeByLogin = (req, res) => {
 
 exports.addToSession = (req, res) => {
     if(!req.auth) return res.status(401).send();
-    console.log(req.auth)
     Session.addToSession(req.auth.login,req.body.id,(err, data) => {
         if (err) {
             res.status(500).send({
@@ -74,6 +73,8 @@ exports.addToSession = (req, res) => {
 };
 
 exports.addSession = (req, res) => {
+    if(!req.auth) return res.status(401).send();
+    if(!req.auth.role !== 1) return res.status(403);
     Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession,(err, data) => {
         if (err)
             res.status(500).send({

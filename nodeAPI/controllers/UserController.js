@@ -74,3 +74,15 @@ exports.checkLogin = (req, res) => {
         }
     });
 };
+
+exports.isAdmin = (req, res) => {
+    if(!req.auth) return res.status(401).send();
+    User.isAdmin(req.auth.login,(err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else res.send(data[0]);
+    });
+};

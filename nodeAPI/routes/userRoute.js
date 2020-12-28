@@ -9,4 +9,6 @@ module.exports = app => {
 
     app.post("/api/users/register", user.register);
 
+    app.post("/api/user/admin", user.isAdmin);
+
 };
