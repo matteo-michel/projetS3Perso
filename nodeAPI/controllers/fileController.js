@@ -3,8 +3,8 @@ const fs = require("fs");
 
 const upload = async (req, res) => {
     try {
+        if(!req.auth) return res.status(401).send();
         await uploadFile(req, res);
-
         if (req.file === undefined) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
@@ -27,11 +27,11 @@ const upload = async (req, res) => {
 };
 
 const getListFiles = (req, res) => {
-    const directoryPath = __basedir + "/jar/";
+    const directoryPath = __basedir + "/jar/session" + req.body.idSession;
 
     fs.readdir(directoryPath, function (err, files) {
         if (err) {
-            res.status(500).send({
+            return res.status(500).send({
                 message: "Unable to scan files!",
             });
         }

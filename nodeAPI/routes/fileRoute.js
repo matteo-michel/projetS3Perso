@@ -21,7 +21,7 @@ module.exports = app => {
         });
     });
     app.post("/api/upload", controller.upload);
-    app.get("/api/files", controller.getListFiles);
+    app.post("/api/files", controller.getListFiles);
 
 
 };

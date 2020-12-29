@@ -20,12 +20,9 @@ export class SessionDetailsComponent implements OnInit {
 
   sub;
   ngOnInit(): void {
-    this.sub = this._Activatedroute.paramMap.subscribe(params => {
-      const id = params.get('id');
-      console.log('debut');
-      console.log(id);
-      this.session = this.sessionService.getSession(Number(id));
-      console.log(this.session);
+    this.sessionService.getSession(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
+      this.session = res;
     });
   }
+
 }

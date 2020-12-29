@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Session} from '../class/session';
 import {TokenStorageService} from "./token-storage.service";
+import {delay} from "rxjs/operators";
 
 
 @Injectable({
@@ -40,21 +41,15 @@ export class SessionService {
     return this.http.post('/api/sessions/join/', {token: login, id: idSession}, this.tokenService.getHttpOption());
   }
 
-  public getSession(id: number): Session {
-    console.log('debug3');
-    this.sub = this.getById(id).subscribe(
+  public getSession(id: number, callback): void {
+    this.getById(id).subscribe(
       data => {
         const json = JSON.parse(JSON.stringify(data));
-        console.log(json);
-        console.log('debug');
         this.session[0] = new Session(json[0]['idSession'], json[0]['enonce'], json[0]['deadline'], json[0]['nomSession']);
+        callback(this.session[0]);
       },
-      err => console.error(err),
-      () => {
-        console.log();
-        // console.log(this.b);
-      });
-    return this.session[0];
+      err => console.error(err)
+    );
   }
 
   public addSession(enonce: string, deadline: string, nomSession: string): Observable<any> {

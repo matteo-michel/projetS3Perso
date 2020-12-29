@@ -30,6 +30,7 @@ exports.parse = (req, res, filename) => {
         res.send(data);
         readInterface.close();
         data = {};
+        fs.unlinkSync(filename);
     });
 
 

@@ -20,7 +20,7 @@ export class UploadComponent implements OnInit {
   constructor(private uploadService: UploadFileService) { }
 
   ngOnInit(): void {
-    this.fileInfos = this.uploadService.getFiles();
+    this.fileInfos = this.uploadService.getFiles('1');
   }
 
   selectFile(event): void {
@@ -31,13 +31,13 @@ export class UploadComponent implements OnInit {
     this.progress = 0;
 
     this.currentFile = this.selectedFiles.item(0);
-    this.uploadService.upload(this.currentFile).subscribe(
+    this.uploadService.upload(this.currentFile, '1').subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
-          this.fileInfos = this.uploadService.getFiles();
+          this.fileInfos = this.uploadService.getFiles('1');
         }
       },
       err => {

@@ -1,15 +1,20 @@
 const util = require("util");
 const multer = require("multer");
 const path = require('path');
+const fs = require('fs');
 const maxSize = 10 * 1024 * 1024;
+
 
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, __basedir + "/jar/");
+        fs.mkdir(__basedir + "/jar/session" + req.body.idSession, {recursive: true}, (err => {
+            if(err) throw err;
+        }));
+        cb(null, __basedir + "/jar/session" + req.body.idSession);
     },
     filename: (req, file, cb) => {
-        console.log(file.originalname);
-        cb(null, file.originalname);
+        //console.log(req.auth.login + "-" + file.originalname);
+        cb(null, req.auth.login + "-" + file.originalname);
     },
 });
 

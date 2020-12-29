@@ -1,4 +1,5 @@
 const Session = require("../models/SessionModel");
+const fs = require("fs");
 
 // Retrieve all Customers from the database.
 exports.findAll = (req, res) => {
@@ -74,13 +75,14 @@ exports.addToSession = (req, res) => {
 
 exports.addSession = (req, res) => {
     if(!req.auth) return res.status(401).send();
-    if(!req.auth.role !== 1) return res.status(403);
+    if(!req.auth.role !== 1) return res.status(403).send();
     Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession,(err, data) => {
         if (err)
             res.status(500).send({
                 message:
                     err.message || "Some error occurred."
-            }); else {
+            });
+        else {
             res.status(200).send({
                 message: "Session ajoute avec succes"
             });

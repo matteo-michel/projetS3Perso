@@ -17,4 +17,7 @@ export class TokenStorageService {
         'Authorization': 'Bearer ' + localStorage.getItem('token')})};
   }
 
+  public getHeader() {
+    return 'Bearer ' + localStorage.getItem('token');
+  }
 }
