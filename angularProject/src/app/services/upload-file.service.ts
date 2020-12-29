@@ -19,7 +19,7 @@ export class UploadFileService {
     formData.append('token', localStorage.getItem('token'));
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, {form: formData, idSession: '1'}, {
       reportProgress: true,
       responseType: 'json',
       headers: new HttpHeaders({'Authorization': this.tokenService.getHeader()})
@@ -30,5 +30,9 @@ export class UploadFileService {
 
   getFiles(idSession: string): Observable<any> {
     return this.http.post(`/api/files`, {idSession});
+  }
+
+  addFile(nom: string, file: string, performances: string, login: () => any, idSession: number): Observable<any>{
+    return this.http.post(`/api/files`, {nom, file, performances, login, idSession});
   }
 }

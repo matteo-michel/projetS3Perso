@@ -3,7 +3,8 @@ module.exports = app => {
     const controller = require("../controllers/fileController");
     const auth = require("../middleware/auth");
 
-    app.get("/api/parse", function (req, res) {
+    app.post("/api/parse", function (req, res) {
+        if(!req.auth) return res.status(401).send();
         const { exec } = require("child_process");
         const filename = "Golomb.jar";
         const arg = 4;

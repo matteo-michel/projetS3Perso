@@ -2,7 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UploadFileService} from '../services/upload-file.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
-import {Session} from "../class/session";
+import {Session} from '../class/session';
+import {TokenStorageService} from '../services/token-storage.service';
 
 @Component({
   selector: 'app-upload',
@@ -19,7 +20,7 @@ export class UploadComponent implements OnInit {
   fileInfos: Observable<any>;
 
   @Input() session: Session;
-  constructor(private uploadService: UploadFileService) { }
+  constructor(private uploadService: UploadFileService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles('' + this.session.idSession);
@@ -48,6 +49,11 @@ export class UploadComponent implements OnInit {
         this.message = 'Le fichier n\'a pas pu être envoyé !';
         this.currentFile = undefined;
       });
+    this.uploadService.addFile(gneu, file, '', this.tokenStorageService.getLogin , this.session.idSession);
     this.selectedFiles = undefined;
+  }
+
+  addFile(nom: string, file: string, performances: string, login: string, idSession: string): void{
+
   }
 }

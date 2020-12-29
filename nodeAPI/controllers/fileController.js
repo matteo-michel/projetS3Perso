@@ -1,4 +1,5 @@
 const uploadFile = require("../middleware/upload");
+const Files = require("../models/FileModel");
 const fs = require("fs");
 
 const upload = async (req, res) => {
@@ -8,7 +9,7 @@ const upload = async (req, res) => {
         if (req.file === undefined) {
             return res.status(400).send({ message: "Please upload a file!" });
         }
-
+        req.mov
         res.status(200).send({
             message: "Uploaded the file successfully: " + req.file.originalname,
         });
@@ -61,6 +62,20 @@ const download = (req, res) => {
         }
     });
 };
+exports.addFile = (req, res) => {
+    Files.addFile(req.body.nom, req.body.file, req.body.performances,req.body.login,req.body.idSession,(err) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else {
+            res.status(200).send({
+                message: "Session ajoute avec succes"
+            });
+        }
+    });
+}
 
 module.exports = {
     upload,
