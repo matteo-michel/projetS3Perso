@@ -41,10 +41,12 @@ export class SessionService {
   }
 
   public getSession(id: number): Session {
+    console.log('debug3');
     this.sub = this.getById(id).subscribe(
       data => {
         const json = JSON.parse(JSON.stringify(data));
         console.log(json);
+        console.log('debug');
         this.session[0] = new Session(json[0]['idSession'], json[0]['enonce'], json[0]['deadline'], json[0]['nomSession']);
       },
       err => console.error(err),
