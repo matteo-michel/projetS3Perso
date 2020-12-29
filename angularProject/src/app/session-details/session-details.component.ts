@@ -13,12 +13,10 @@ export class SessionDetailsComponent implements OnInit {
 
   session: Session;
 
-
   constructor(private _Activatedroute: ActivatedRoute,
               private _router: Router,
               private sessionService: SessionService) { }
 
-  sub;
   ngOnInit(): void {
     this.sessionService.getSession(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
       this.session = res;

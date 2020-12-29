@@ -13,7 +13,6 @@ let storage = multer.diskStorage({
         cb(null, __basedir + "/jar/session" + req.body.idSession);
     },
     filename: (req, file, cb) => {
-        //console.log(req.auth.login + "-" + file.originalname);
         cb(null, req.auth.login + "-" + file.originalname);
     },
 });

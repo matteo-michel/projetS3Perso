@@ -14,7 +14,6 @@ export class UploadFileService {
 
   upload(file: File, idSession: string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    console.log(idSession);
 
     formData.append('idSession', idSession);
     formData.append('token', localStorage.getItem('token'));
