@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit{
   isLogin: Boolean = false;
+  isAdmin: Boolean = false;
 
   constructor(private router: Router) {
   }
@@ -30,4 +32,5 @@ export class AppComponent implements OnInit{
       return true;
     } else { return false; }
   }
+
 }

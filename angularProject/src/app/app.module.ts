@@ -47,10 +47,6 @@ import { UploadComponent } from './upload/upload.component';
             component: SessionDetailsComponent
           },
           {
-            path: 'upload',
-            component: UploadComponent
-          },
-          {
             path: 'addSession',
             component: CreateSessionComponent
           }

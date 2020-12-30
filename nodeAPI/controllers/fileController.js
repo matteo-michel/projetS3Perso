@@ -135,20 +135,6 @@ const download = (req, res) => {
         }
     });
 };
-const addFile = (req, res) => {
-    Files.addFile(req.body.nom, req.body.file, req.body.performances,req.body.login,req.body.idSession,(err) => {
-        if (err)
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred."
-            });
-        else {
-            res.status(200).send({
-                message: "Session ajoute avec succes"
-            });
-        }
-    });
-}
 
 
 module.exports = {

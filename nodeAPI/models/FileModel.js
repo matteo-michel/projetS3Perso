@@ -8,27 +8,29 @@ const Files = function (file) {
 }
 
 Files.addFile = (p_nom,p_file,p_performances,p_login,p_idSession, result) => {
-    mysql.query(`INSERT INTO fichier VALUES (0,"${p_nom}","${p_file}","${p_performances}")`,
-        (err) => {
-            if (err) {
-                console.log("error: ", err);
-                return;
-            }
-        });
-    mysql.query(`INSERT INTO depot VALUES ((SELECT idFile FROM fichier WHERE file = "${p_file}"),"${p_login}")`,
-        (err) => {
-            if (err) {
-                console.log("error: ", err);
-                return;
-            }
-    });
-    mysql.query(`INSERT INTO rendu VALUES ((SELECT idFile FROM fichier WHERE file = "${p_file}"),"${p_idSession}")`,
-        (err) => {
-            if (err) {
-                console.log("error: ", err);
-                return;
-            }
-    });
+    try {
+        mysql.query(`INSERT INTO fichier VALUES (0,"${p_nom}","${p_file}","${p_performances}")`,
+            (err) => {
+                if (err) {
+                    //console.log("error: ", err);
+                    return;
+                }
+            });
+        mysql.query(`INSERT INTO depot VALUES ((SELECT idFile FROM fichier WHERE file = "${p_file}"),"${p_login}")`,
+            (err) => {
+                if (err) {
+                    //console.log("error: ", err);
+                    return;
+                }
+            });
+        mysql.query(`INSERT INTO rendu VALUES ((SELECT idFile FROM fichier WHERE file = "${p_file}"),"${p_idSession}")`,
+            (err) => {
+                if (err) {
+                    //console.log("error: ", err);
+                    return;
+                }
+            });
+    } catch (err) {}
 };
 
 Files.setPerformance = (p_file, p_performance) => {
