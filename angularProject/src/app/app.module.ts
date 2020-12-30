@@ -14,10 +14,12 @@ import { CreateSessionComponent } from './create-session/create-session.componen
 import { UploadComponent } from './upload/upload.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { TableTestComponent } from './table-test/table-test.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     RegisterComponent,
     CreateSessionComponent,
     UploadComponent,
-    ScoreboardComponent
+    ScoreboardComponent,
+    TableTestComponent
   ],
   imports: [
     BrowserModule,
@@ -64,9 +67,10 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ]),
     BrowserAnimationsModule,
     MatFormFieldModule,
+    MatInputModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

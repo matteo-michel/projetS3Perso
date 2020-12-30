@@ -17,8 +17,17 @@ export class File {
   }
 
   public getPerformance(param: string): string {
-    const perf = JSON.parse(JSON.stringify(this.performance));
-    console.log(perf);
+    let perf = JSON.parse(this.performance);
     return perf[param];
+  }
+
+  getElementForTable() {
+    var result = {};
+    result['login'] = this.login;
+    result['nodes'] = Number(this.getPerformance("Nodes"));
+    result['solutions'] = Number(this.getPerformance("Solutions"));
+    result['fails'] = Number(this.getPerformance("Fails"));
+    result['time'] = Number(this.getPerformance("Building time").replace(',', '.')) + Number(this.getPerformance("Resolution time").replace(',', '.'));
+    return result;
   }
 }
