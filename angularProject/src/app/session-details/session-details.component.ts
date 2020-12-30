@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {SessionService} from '../services/session.service';
 import {Session} from '../class/session';
-import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-session-details',

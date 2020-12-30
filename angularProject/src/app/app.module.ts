@@ -12,6 +12,12 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
 import { RegisterComponent } from './register/register.component';
 import { CreateSessionComponent } from './create-session/create-session.component';
 import { UploadComponent } from './upload/upload.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -23,35 +29,45 @@ import { UploadComponent } from './upload/upload.component';
     SessionDetailsComponent,
     RegisterComponent,
     CreateSessionComponent,
-    UploadComponent
+    UploadComponent,
+    ScoreboardComponent
   ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        RouterModule.forRoot([
-          {
-            path: '',
-            component: HomeComponent
-          },
-          {
-            path: 'login',
-            component: LoginComponent
-          },
-          {
-            path: 'register',
-            component: RegisterComponent
-          },
-          {
-            path: 'session/:id',
-            component: SessionDetailsComponent
-          },
-          {
-            path: 'addSession',
-            component: CreateSessionComponent
-          }
-        ])
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'session/:id',
+        component: SessionDetailsComponent
+      },
+      {
+        path: 'addSession',
+        component: CreateSessionComponent
+      },
+      {
+        path: 'scoreboard',
+        component: ScoreboardComponent
+      }
+    ]),
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

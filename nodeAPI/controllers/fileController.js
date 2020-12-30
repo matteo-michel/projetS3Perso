@@ -99,6 +99,20 @@ const parse = (req, res) => {
 
 }
 
+const getAllFiles = (req, res) => {
+    Files.getAll(req.body.idSession, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else {
+            res.send(data);
+
+        }
+    });
+}
+
 
 const getListFiles = (req, res) => {
     const directoryPath = __basedir + "/jar/session" + req.body.idSession;
@@ -141,5 +155,6 @@ module.exports = {
     upload,
     getListFiles,
     download,
-    parse
+    parse,
+    getAllFiles
 };
