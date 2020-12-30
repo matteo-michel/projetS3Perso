@@ -12,42 +12,45 @@ Files.addFile = (p_nom,p_file,p_performances,p_login,p_idSession, result) => {
         (err) => {
             if (err) {
                 console.log("error: ", err);
-                result(err, null);
                 return;
             }
-            result(null, null);
         });
-    const p_idFile = this.getIdByPath(p_file);
-    mysql.query(`INSERT INTO depot VALUES ("${p_idFile}","${p_login}")`,
+    mysql.query(`INSERT INTO depot VALUES ((SELECT idFile FROM fichier WHERE file = "${p_file}"),"${p_login}")`,
         (err) => {
             if (err) {
                 console.log("error: ", err);
-                result(err, null);
                 return;
             }
-            result(null, null);
-        });
-    mysql.query(`INSERT INTO rendu VALUES ("${p_idFile}","${p_idSession}")`,
+    });
+    mysql.query(`INSERT INTO rendu VALUES ((SELECT idFile FROM fichier WHERE file = "${p_file}"),"${p_idSession}")`,
         (err) => {
             if (err) {
                 console.log("error: ", err);
-                result(err, null);
                 return;
             }
-            result(null, null);
-        });
+    });
 };
 
-Files.getIdByPath = (p_file, result) => {
+Files.setPerformance = (p_file, p_performance) => {
+    mysql.query(`UPDATE fichier SET performances = '${p_performance}' WHERE file = "${p_file}"`,
+        (err) => {
+            if (err) {
+                console.log("error: ", err);
+                return;
+            }
+    });
+}
+
+Files.getFileByPath = (p_file, result) => {
     mysql.query(`SELECT idFile FROM fichier WHERE file = "${p_file}"`, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
-        //console.log("Books: ", res);
         result(null, res);
     });
-};
+}
+
 
 module.exports = Files ;

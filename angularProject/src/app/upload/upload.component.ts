@@ -26,7 +26,6 @@ export class UploadComponent implements OnInit {
     this.fileInfos = this.uploadService.getFiles('' + this.session.idSession);
   }
 
-
   selectFile(event): void {
     this.selectedFiles = event.target.files;
   }
@@ -49,11 +48,7 @@ export class UploadComponent implements OnInit {
         this.message = 'Le fichier n\'a pas pu être envoyé !';
         this.currentFile = undefined;
       });
-    this.uploadService.addFile(gneu, file, '', this.tokenStorageService.getLogin , this.session.idSession);
     this.selectedFiles = undefined;
   }
 
-  addFile(nom: string, file: string, performances: string, login: string, idSession: string): void{
-
-  }
 }

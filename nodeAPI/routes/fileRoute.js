@@ -18,7 +18,7 @@ module.exports = app => {
                 return;
             }
             //console.log(`stdout: ${stdout}`);
-            parser.parse(req, res, "golomb" + arg +".txt");
+            controller.parse(req, res, "golomb" + arg +".txt");
         });
     });
     app.post("/api/upload", controller.upload);
