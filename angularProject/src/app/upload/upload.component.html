@@ -33,6 +33,7 @@
     >
       <li class="list-group-item">
         <span>{{ file.name }}</span>
+        <button (click)="deleteFile(file.name)" class="btn btn-danger">Supprimer le fichier</button>
       </li>
     </ul>
   </div>

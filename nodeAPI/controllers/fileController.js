@@ -115,7 +115,9 @@ const getAllFiles = (req, res) => {
 
 
 const getListFiles = (req, res) => {
+    if(!req.auth) return res.status(401).send();
     const directoryPath = __basedir + "/jar/session" + req.body.idSession;
+    const loginUser = req.auth.login;
 
     fs.readdir(directoryPath, function (err, files) {
         if (err) {
@@ -127,10 +129,12 @@ const getListFiles = (req, res) => {
         let fileInfos = [];
 
         files.forEach((file) => {
-            fileInfos.push({
-                name: file,
-                url: directoryPath + file,
-            });
+            if (file.startsWith(loginUser)){
+                fileInfos.push({
+                    name: file,
+                    url: directoryPath + file,
+                });
+            }
         });
 
         res.status(200).send(fileInfos);
@@ -149,6 +153,23 @@ const download = (req, res) => {
         }
     });
 };
+const deleteFile = (req, res) => {
+    if(!req.auth) return res.status(401).send();
+    const filePath = 'session' + req.body.idSession +'/' + req.body.fileName;
+    Files.deleteFile(filePath,(err) => {
+        if (err) {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        } else {
+            res.status(201).send;
+        }
+    });
+    //console.log(__basedir + '/jar/' +filePath);
+    fs.unlinkSync(__basedir + '/jar/' +filePath);
+};
+
 
 
 module.exports = {
@@ -156,5 +177,6 @@ module.exports = {
     getListFiles,
     download,
     parse,
-    getAllFiles
+    getAllFiles,
+    deleteFile
 };

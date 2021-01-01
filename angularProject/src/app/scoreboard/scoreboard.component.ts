@@ -24,8 +24,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['login', 'nodes', 'solutions', 'fails', 'time'];
-  DATA: FileElement[] = [/*{login: 'michelm', nodes: 125, solutions: 250, fails: 2, time: 0.25},
-    {login: 'michel', nodes: 125, solutions: 250, fails: 4, time: 0.25}*/];
+  DATA: FileElement[] = [];
   dataSource = new MatTableDataSource<FileElement>(this.DATA);
   files: File[] = [];
 

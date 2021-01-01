@@ -23,7 +23,7 @@ export class UploadComponent implements OnInit {
   constructor(private uploadService: UploadFileService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.fileInfos = this.uploadService.getFiles('' + this.session.idSession);
+    this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
   }
 
   selectFile(event): void {
@@ -40,7 +40,7 @@ export class UploadComponent implements OnInit {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
-          this.fileInfos = this.uploadService.getFiles('' + this.session.idSession);
+          this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
         }
       },
       err => {
@@ -49,6 +49,17 @@ export class UploadComponent implements OnInit {
         this.currentFile = undefined;
       });
     this.selectedFiles = undefined;
+  }
+
+  deleteFile(name: string): void {
+    try {
+      this.uploadService.deleteFile( this.session.idSession, name).subscribe(
+        data => {},
+        err => console.log('la suppréssion du fichier a échoué !'),
+        () => {});
+    } catch (err) {
+    }
+    this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
   }
 
 }

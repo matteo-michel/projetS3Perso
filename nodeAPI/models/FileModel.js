@@ -70,5 +70,14 @@ Files.getFileByPath = (p_file, result) => {
     });
 }
 
+Files.deleteFile = (p_file) => {
+    mysql.query(`DELETE FROM fichier WHERE file = "${p_file}"`,
+        (err) => {
+            if (err) {
+                console.log("error: ", err);
+            }
+        });
+}
+
 
 module.exports = Files ;

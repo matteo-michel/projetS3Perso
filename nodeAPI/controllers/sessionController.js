@@ -75,7 +75,7 @@ exports.addToSession = (req, res) => {
 
 exports.addSession = (req, res) => {
     if(!req.auth) return res.status(401).send();
-    if(!req.auth.role !== 1) return res.status(403).send();
+    //if(!req.auth.role !== 1) return res.status(403).send();
     Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession,(err, data) => {
         if (err)
             res.status(500).send({
