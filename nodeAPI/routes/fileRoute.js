@@ -6,5 +6,6 @@ module.exports = app => {
     app.post("/api/files", controller.getListFiles);
     app.post("/api/files/sessions", controller.getAllFiles);
     app.post("/api/files/delete", controller.deleteFile);
+    app.post("/api/files/download", controller.download);
 
 };

@@ -41,4 +41,12 @@ export class UploadFileService {
     return this.http.post(`/api/files/delete`, {idSession, fileName}, this.tokenService.getHttpOption());
   }
 
+  downloadFile(idSession: number, fileName: string): Observable<any> {
+    return this.http.post(`/api/files/download`, {idSession, fileName},{
+      responseType: 'blob',
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')})
+    });
+  }
+
 }

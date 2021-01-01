@@ -4,6 +4,7 @@ import {UploadFileService} from '../services/upload-file.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Session} from '../class/session';
 import {TokenStorageService} from '../services/token-storage.service';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -61,6 +62,19 @@ export class UploadComponent implements OnInit {
     } catch (err) {
     }
     this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
+  }
+
+  downloadFile(name: string): void {
+    try {
+      this.uploadService.downloadFile(this.session.idSession, name).subscribe(
+        data => {
+            let blob: any = new Blob([data], {type: 'application/java-archive; charset = utf-8'});
+            const url = window.URL.createObjectURL(blob);
+            saveAs(blob, name);
+          },
+        err => console.log('le téléchargement du fichier a échoué !'),
+        () => {});
+    } catch (err) {}
   }
 
 }

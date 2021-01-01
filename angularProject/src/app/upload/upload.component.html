@@ -34,6 +34,7 @@
       <li class="list-group-item">
         <span>{{ file.name }}</span>
         <button (click)="deleteFile(file.name)" class="btn btn-danger">Supprimer le fichier</button>
+        <button (click)="downloadFile(file.name)" class="btn btn-success">Télécharger le fichier</button>
       </li>
     </ul>
   </div>
