@@ -5,6 +5,7 @@ import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Session} from '../class/session';
 import {TokenStorageService} from '../services/token-storage.service';
 
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',

@@ -2,6 +2,7 @@ const uploadFile = require("../middleware/upload");
 const Files = require("../models/FileModel");
 const readline = require('readline');
 const fs = require("fs");
+const UserController = require("./UserController");
 
 let data = {};
 var number;
@@ -115,11 +116,63 @@ const getAllFiles = (req, res) => {
 
 
 const getListFiles = (req, res) => {
-    if(!req.auth) return res.status(401).send();
+    if (!req.auth) return res.status(401).send();
     const directoryPath = __basedir + "/jar/session" + req.body.idSession;
     const loginUser = req.auth.login;
+    let unprocessedData = [];
+    let fileInfos = [];
+    Files.isAdmin(req.auth.login, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else {
+            if (data[0].admin === 1) {
+                Files.getFileBySession(req.body.idSession, (err, data) => {
+                    if (err)
+                        res.status(500).send({
+                            message:
+                                err.message || "Some error occurred."
+                        });
+                    else {
+                        unprocessedData = data;
+                        unprocessedData.forEach((currentFile) => {
+                            let file = currentFile.file.replace(/^session\d+\//g, '');
+                            fileInfos.push({
+                                name: file,
+                                url: directoryPath + file,
+                            });
+                        });
+                        res.status(200).send(fileInfos);
+                    }
+                });
+            } else {
+                Files.getFileBySessionLogin(req.body.idSession, loginUser, (err, data) => {
+                    if (err)
+                        res.status(500).send({
+                            message:
+                                err.message || "Some error occurred."
+                        });
+                    else {
+                        unprocessedData = data;
+                        unprocessedData.forEach((currentFile) => {
+                            let file = currentFile.file.replace(/^session\d+\//g, '');
+                            fileInfos.push({
+                                name: file,
+                                url: directoryPath + file,
+                            });
+                        });
+                        res.status(200).send(fileInfos);
+                    }
+                });
+            }
+        }
+    });
+}
 
-    fs.readdir(directoryPath, function (err, files) {
+
+    /*fs.readdir(directoryPath, function (err, files) {
         if (err) {
             return res.status(500).send({
                 message: "Unable to scan files!",
@@ -138,8 +191,8 @@ const getListFiles = (req, res) => {
         });
 
         res.status(200).send(fileInfos);
-    });
-};
+    });*/
+
 
 const download = (req, res) => {
     const fileName = req.params.name;

@@ -18,7 +18,6 @@ Files.getAll = (p_idSession,result) => {
                 result(null, err);
                 return;
             }
-            //console.log("Books: ", res);
             result(null, res);
         });
 };
@@ -78,6 +77,49 @@ Files.deleteFile = (p_file) => {
             }
         });
 }
+
+Files.getFileBySessionLogin = (p_idSession, p_login, result) => {
+    mysql.query('SELECT file FROM fichier f \n' +
+        'JOIN rendu r ON r.idFile = f.idFile\n' +
+        'JOIN depot d ON d.idFile = f.idFile\n' +
+        `WHERE idSession = "${p_idSession}" AND login = "${p_login}"`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            //console.log("Books: ", res);
+            result(null, res);
+        });
+};
+Files.getFileBySession = (p_idSession, result) => {
+    mysql.query('SELECT file FROM fichier f \n' +
+        'JOIN rendu r ON r.idFile = f.idFile\n' +
+        'JOIN depot d ON d.idFile = f.idFile\n' +
+        `WHERE idSession = "${p_idSession}"`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            //console.log("Books: ", res);
+            result(null, res);
+        });
+};
+
+Files.isAdmin = (p_login, result) => {
+    mysql.query(`SELECT admin FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
 
 
 module.exports = Files ;
