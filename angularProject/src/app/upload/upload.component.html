@@ -1,30 +1,31 @@
 <div class="container" style="width:600px">
-  <div style="margin: 20px">
-    <h3>Upload file</h3>
-  </div>
-  <div *ngIf="currentFile" class="progress">
-    <div
-      class="progress-bar progress-bar-info progress-bar-striped"
-      role="progressbar"
-      attr.aria-valuenow="{{ progress }}"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      [ngStyle]="{ width: progress + '%' }"
-    >
-      {{ progress }}%
+  <div *ngIf="isOutdated==0">
+    <div style="margin: 20px">
+      <h3>Upload file</h3>
     </div>
+    <div *ngIf="currentFile" class="progress">
+      <div
+        class="progress-bar progress-bar-info progress-bar-striped"
+        role="progressbar"
+        attr.aria-valuenow="{{ progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: progress + '%' }"
+      >
+        {{ progress }}%
+      </div>
+    </div>
+
+    <label class="btn btn-default">
+      <input type="file" (change)="selectFile($event)" accept=".jar"/>
+    </label>
+
+    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+      Envoyer
+    </button>
+
+    <div class="alert alert-light" role="alert">{{ message }}</div>
   </div>
-
-  <label class="btn btn-default">
-    <input type="file" (change)="selectFile($event)" accept=".jar"/>
-  </label>
-
-  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-    Envoyer
-  </button>
-
-  <div class="alert alert-light" role="alert">{{ message }}</div>
-
   <div class="card">
     <div class="card-header">Liste des fichiers envoyés</div>
     <ul
@@ -33,7 +34,7 @@
     >
       <li class="list-group-item">
         <span>{{ file.name }}</span>
-        <button (click)="deleteFile(file.name)" class="btn btn-danger">Supprimer le fichier</button>
+        <button *ngIf="isOutdated==0" (click)="deleteFile(file.name)" class="btn btn-danger">Supprimer le fichier</button>
         <button (click)="downloadFile(file.name)" class="btn btn-success">Télécharger le fichier</button>
       </li>
     </ul>

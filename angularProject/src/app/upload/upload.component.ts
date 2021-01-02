@@ -22,6 +22,7 @@ export class UploadComponent implements OnInit {
   fileInfos: Observable<any>;
 
   @Input() session: Session;
+  @Input() isOutdated: number;
   constructor(private uploadService: UploadFileService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -68,7 +69,7 @@ export class UploadComponent implements OnInit {
     try {
       this.uploadService.downloadFile(this.session.idSession, name).subscribe(
         data => {
-            let blob: any = new Blob([data], {type: 'application/java-archive; charset = utf-8'});
+            const blob: any = new Blob([data], {type: 'application/java-archive; charset = utf-8'});
             const url = window.URL.createObjectURL(blob);
             saveAs(blob, name);
           },

@@ -1,6 +1,12 @@
 const Session = require("../models/SessionModel");
 const fs = require("fs");
 
+
+const today = new Date();
+const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+const time = today.toLocaleTimeString();
+const dateTime = date + ' ' + time;
+
 // Retrieve all Customers from the database.
 exports.findAll = (req, res) => {
     Session.getAll((err, data) => {
@@ -25,7 +31,7 @@ exports.getById = (req, res) => {
 };
 
 exports.findByLoginActual = (req, res) => {
-    Session.getByLoginActual(req.body.login,req.body.time,(err, data) => {
+    Session.getByLoginActual(req.body.login,dateTime,(err, data) => {
         if (err) {
             console.log(err);
             res.status(500).send({
@@ -37,7 +43,7 @@ exports.findByLoginActual = (req, res) => {
 };
 
 exports.findByLoginOld = (req, res) => {
-    Session.getByLoginOld(req.body.login,req.body.time,(err, data) => {
+    Session.getByLoginOld(req.body.login,dateTime,(err, data) => {
         if (err) {
             console.log(err);
             res.status(500).send({
@@ -49,7 +55,7 @@ exports.findByLoginOld = (req, res) => {
 };
 
 exports.findAllWithoutRegistered = (req, res) => {
-    Session.getAllWithoutRegister(req.body.login,req.body.time,(err, data) => {
+    Session.getAllWithoutRegister(req.body.login,dateTime,(err, data) => {
         if (err) {
             console.log(err);
             res.status(500).send({
@@ -86,9 +92,9 @@ exports.addToSession = (req, res) => {
 };
 
 exports.addSession = (req, res) => {
-    if(!req.auth) return res.status(401).send();
+    if (!req.auth) return res.status(401).send();
     //if(!req.auth.role !== 1) return res.status(403).send();
-    Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession,(err, data) => {
+    Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession, (err, data) => {
         if (err)
             res.status(500).send({
                 message:
@@ -101,5 +107,16 @@ exports.addSession = (req, res) => {
         }
     });
 }
+exports.isOutdated = (req, res) => {
+    Session.getByIdAndOutdated(req.body.id,dateTime,(err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else res.send(data)
+    });
+}
+
 
 

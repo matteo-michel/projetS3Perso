@@ -21,27 +21,15 @@ export class SessionService {
   }
 
   public getAllAvailable(login: string): Observable<any> {
-    const today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const time = today.toLocaleTimeString();
-    const dateTime = date + ' ' + time;
-    return this.http.post('/api/sessions/available', {login, time: dateTime}, this.tokenService.getHttpOption());
+    return this.http.post('/api/sessions/available', {login}, this.tokenService.getHttpOption());
   }
 
   public getByLoginOld(login: string): Observable<any> {
-    const today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const time = today.toLocaleTimeString();
-    const dateTime = date + ' ' + time;
-    return this.http.post('/api/sessions/outdated', {login, time: dateTime}, this.tokenService.getHttpOption());
+    return this.http.post('/api/sessions/outdated', {login}, this.tokenService.getHttpOption());
   }
 
   public getByLoginActual(login: string): Observable<any> {
-    const today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const time = today.toLocaleTimeString();
-    const dateTime = date + ' ' + time;
-    return this.http.post('/api/sessions/actual', {login, time: dateTime}, this.tokenService.getHttpOption());
+    return this.http.post('/api/sessions/actual', {login}, this.tokenService.getHttpOption());
   }
 
   public getById(id: number): Observable<any> {
@@ -66,6 +54,21 @@ export class SessionService {
       },
       err => console.error(err)
     );
+  }
+
+  public isOutdated(id: number, callback): void {
+    this.checkDate(id).subscribe(
+      data => {
+        if (data.length === 0){
+          callback(0);
+        }
+        else { callback(1); }
+      },
+      err => console.error(err)
+    );
+  }
+  public checkDate(idSession: number): Observable<any> {
+    return this.http.post('/api/sessions/checkDate/', {id: idSession}, this.tokenService.getHttpOption());
   }
 
   public addSession(enonce: string, deadline: string, nomSession: string): Observable<any> {

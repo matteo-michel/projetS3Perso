@@ -123,4 +123,16 @@ Session.addSession = (p_enonce, p_deadline,p_nomSession,result) => {
         });
 };
 
+Session.getByIdAndOutdated = (p_id,p_date, result) => {
+    mysql.query(`SELECT * FROM session WHERE idSession = "${p_id}" AND deadline <= "${p_date}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        //console.log("Books: ", res);
+        result(null, res);
+    });
+};
+
 module.exports = Session;

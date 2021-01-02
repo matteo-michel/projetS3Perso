@@ -19,4 +19,6 @@ module.exports = app => {
 
     app.post("/api/sessions/available", session.findAllWithoutRegistered);
 
+    app.post("/api/sessions/checkDate/", session.isOutdated);
+
 };

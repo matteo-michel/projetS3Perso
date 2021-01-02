@@ -11,6 +11,7 @@ import {Session} from '../class/session';
 export class SessionDetailsComponent implements OnInit {
 
   session: Session;
+  isOutdated = 1;
 
   constructor(private _Activatedroute: ActivatedRoute,
               private _router: Router,
@@ -19,6 +20,9 @@ export class SessionDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.sessionService.getSession(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
       this.session = res;
+    });
+    this.sessionService.isOutdated(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
+      this.isOutdated = res;
     });
   }
 
