@@ -55,11 +55,11 @@ const parse = (req, res) => {
     exec("java -jar ./jar/" + filename +  " -m " + arg, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
-            return;
+            return res.status(500).send;
         }
         if (stderr) {
             console.log(`stderr: ${stderr}`);
-            return;
+            return res.status(500).send;
         }
         //console.log(`stdout: ${stdout}`);
         const fileTxt = "golomb" + arg +".txt";
