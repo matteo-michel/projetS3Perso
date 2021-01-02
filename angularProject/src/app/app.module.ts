@@ -19,8 +19,9 @@ import { MatInputModule } from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { TableTestComponent } from './table-test/table-test.component';
 import { OutdatedSessionComponent } from './outdated-session/outdated-session.component';
+import { ChartsComponent } from './charts/charts.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { OutdatedSessionComponent } from './outdated-session/outdated-session.co
     CreateSessionComponent,
     UploadComponent,
     ScoreboardComponent,
-    TableTestComponent,
-    OutdatedSessionComponent
+    OutdatedSessionComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +74,7 @@ import { OutdatedSessionComponent } from './outdated-session/outdated-session.co
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    HighchartsChartModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

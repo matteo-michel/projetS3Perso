@@ -12,6 +12,7 @@ export class SessionDetailsComponent implements OnInit {
 
   session: Session;
   isOutdated = 1;
+  state = 'upload';
 
   constructor(private _Activatedroute: ActivatedRoute,
               private _router: Router,
@@ -20,10 +21,24 @@ export class SessionDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.sessionService.getSession(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
       this.session = res;
+      console.log('hello');
     });
     this.sessionService.isOutdated(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
       this.isOutdated = res;
     });
+  }
+  resetComponent(): void {
+    if (this.state === 'upload'){
+    }
+    else if (this.state === 'self') {
+    }
+    else if (this.state === 'others'){
+    }
+    this.ngOnInit();
+  }
+  changeState(state: string): void{
+    this.state = state;
+    this.resetComponent();
   }
 
 }

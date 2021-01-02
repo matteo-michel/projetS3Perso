@@ -1,2 +1,16 @@
-<p>{{session?.nomSession}}</p>
-<app-upload *ngIf="session" [session]="session" [isOutdated]="isOutdated"></app-upload>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="state=='upload'" role="tab" (click)="changeState('upload')">Upload</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="state=='self'" (click)="changeState('self')">Mon travail</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="state=='others'" (click)="changeState('others')">Mon groupe</a>
+  </li>
+</ul>
+<div *ngIf="state=='upload'"><app-upload *ngIf="session" [session]="session" [isOutdated]="isOutdated"></app-upload></div>
+
+<div *ngIf="state=='self'"><app-charts *ngIf="session" [session]="session" [state]="state"></app-charts></div>
+
+<div *ngIf="state=='others'"><app-charts *ngIf="session" [session]="session" [state]="state"></app-charts></div>
