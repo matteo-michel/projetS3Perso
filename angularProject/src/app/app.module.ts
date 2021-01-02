@@ -22,6 +22,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { OutdatedSessionComponent } from './outdated-session/outdated-session.component';
 import { ChartsComponent } from './charts/charts.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { GaugeComponent } from './gauge/gauge.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     UploadComponent,
     ScoreboardComponent,
     OutdatedSessionComponent,
-    ChartsComponent
+    ChartsComponent,
+    GaugeComponent
   ],
   imports: [
     BrowserModule,

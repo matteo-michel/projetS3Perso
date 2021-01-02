@@ -21,7 +21,6 @@ export class SessionDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.sessionService.getSession(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
       this.session = res;
-      console.log('hello');
     });
     this.sessionService.isOutdated(parseInt(this._Activatedroute.snapshot.paramMap.get('id'), 10), (res) => {
       this.isOutdated = res;
