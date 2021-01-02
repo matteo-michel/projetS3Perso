@@ -18,6 +18,7 @@ export class UploadComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
+  canUpload = 0;
 
   fileInfos: Observable<any>;
 
@@ -26,6 +27,9 @@ export class UploadComponent implements OnInit {
   constructor(private uploadService: UploadFileService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.uploadService.canUpload(this.session.idSession, (res) => {
+      this.canUpload = res;
+    });
     this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
   }
 
@@ -34,35 +38,39 @@ export class UploadComponent implements OnInit {
   }
 
   upload(): void {
-    this.progress = 0;
+    if (this.canUpload === 1 && this.isOutdated === 0) {
+      this.progress = 0;
 
-    this.currentFile = this.selectedFiles.item(0);
-    this.uploadService.upload(this.currentFile, '' + this.session.idSession).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-          this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
-        }
-      },
-      err => {
-        this.progress = 0;
-        this.message = 'Le fichier n\'a pas pu être envoyé !';
-        this.currentFile = undefined;
-      });
-    this.selectedFiles = undefined;
+      this.currentFile = this.selectedFiles.item(0);
+      this.uploadService.upload(this.currentFile, '' + this.session.idSession).subscribe(
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            this.message = event.body.message;
+            this.ngOnInit();
+          }
+        },
+        err => {
+          this.progress = 0;
+          this.message = 'Le fichier n\'a pas pu être envoyé !';
+          this.currentFile = undefined;
+        });
+      this.selectedFiles = undefined;
+    }
   }
 
   deleteFile(name: string): void {
     try {
+      if (this.isOutdated === 0){
       this.uploadService.deleteFile( this.session.idSession, name).subscribe(
         data => {},
         err => console.log('la suppréssion du fichier a échoué !'),
         () => {});
+      }
     } catch (err) {
     }
-    this.fileInfos = this.uploadService.getFilesByID('' + this.session.idSession);
+    this.ngOnInit();
   }
 
   downloadFile(name: string): void {

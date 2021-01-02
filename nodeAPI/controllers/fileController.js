@@ -172,28 +172,6 @@ const getListFiles = (req, res) => {
 }
 
 
-    /*fs.readdir(directoryPath, function (err, files) {
-        if (err) {
-            return res.status(500).send({
-                message: "Unable to scan files!",
-            });
-        }
-
-        let fileInfos = [];
-
-        files.forEach((file) => {
-            if (file.startsWith(loginUser)){
-                fileInfos.push({
-                    name: file,
-                    url: directoryPath + file,
-                });
-            }
-        });
-
-        res.status(200).send(fileInfos);
-    });*/
-
-
 const download = (req, res) => {
     const directoryPath = __basedir + "/jar/";
     const filePath = 'session' + req.body.idSession +'/' + req.body.fileName;
@@ -222,6 +200,19 @@ const deleteFile = (req, res) => {
     fs.unlinkSync(__basedir + '/jar/' +filePath);
 };
 
+const canUpload = (req,res) => {
+    if(!req.auth) return res.status(401).send();
+    Files.canUpload(req.body.idSession,req.auth.login,(err,data) => {
+        if (err) {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        } else {
+            res.send(data);
+        }
+    });
+}
 
 
 module.exports = {
@@ -230,5 +221,6 @@ module.exports = {
     download,
     parse,
     getAllFiles,
-    deleteFile
+    deleteFile,
+    canUpload
 };

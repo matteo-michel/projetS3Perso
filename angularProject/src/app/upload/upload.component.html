@@ -19,11 +19,8 @@
     <label class="btn btn-default">
       <input type="file" (change)="selectFile($event)" accept=".jar"/>
     </label>
-
-    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-      Envoyer
-    </button>
-
+    <button *ngIf="canUpload==1" class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Envoyer</button>
+    <p *ngIf="canUpload==0">Vous ne pouvez avoir qu'un seul fichier à la fois</p>
     <div class="alert alert-light" role="alert">{{ message }}</div>
   </div>
   <div class="card">

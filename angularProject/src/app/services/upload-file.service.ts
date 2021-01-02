@@ -48,5 +48,20 @@ export class UploadFileService {
         'Authorization': 'Bearer ' + localStorage.getItem('token')})
     });
   }
+  public canUpload(idSession: number, callback): void {
+    this.getUploadLoginSession(idSession).subscribe(
+      data => {
+        if (data.length !== 0){
+          callback(0);
+        }
+        else { callback(1); }
+      },
+      err => console.error(err)
+    );
+  }
+
+  getUploadLoginSession(idSession: number): Observable<any>{
+    return this.http.post('/api/files/canUpload', {idSession}, this.tokenService.getHttpOption());
+  }
 
 }
