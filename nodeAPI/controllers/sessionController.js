@@ -24,8 +24,20 @@ exports.getById = (req, res) => {
     });
 };
 
-exports.findByLogin = (req, res) => {
-    Session.getByLogin(req.params.login,(err, data) => {
+exports.findByLoginActual = (req, res) => {
+    Session.getByLoginActual(req.body.login,req.body.time,(err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        } else res.send(data);
+    });
+};
+
+exports.findByLoginOld = (req, res) => {
+    Session.getByLoginOld(req.body.login,req.body.time,(err, data) => {
         if (err) {
             console.log(err);
             res.status(500).send({
@@ -37,7 +49,7 @@ exports.findByLogin = (req, res) => {
 };
 
 exports.findAllWithoutRegistered = (req, res) => {
-    Session.getAllWithoutRegister(req.params.login,(err, data) => {
+    Session.getAllWithoutRegister(req.body.login,req.body.time,(err, data) => {
         if (err) {
             console.log(err);
             res.status(500).send({

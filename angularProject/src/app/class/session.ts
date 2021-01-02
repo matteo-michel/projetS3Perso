@@ -17,7 +17,7 @@ export class Session {
 
   public static getSessions(sessionService: SessionService): Session[] {
     let s: Session[] = [];
-    sessionService.getByLogin(localStorage.getItem('login')).subscribe(
+    sessionService.getByLoginActual(localStorage.getItem('login')).subscribe(
         data => {
           const json = JSON.parse(JSON.stringify(data));
           s = this.createSessionArray(json);

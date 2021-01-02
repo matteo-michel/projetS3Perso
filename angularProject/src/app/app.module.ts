@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { TableTestComponent } from './table-test/table-test.component';
+import { OutdatedSessionComponent } from './outdated-session/outdated-session.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TableTestComponent } from './table-test/table-test.component';
     CreateSessionComponent,
     UploadComponent,
     ScoreboardComponent,
-    TableTestComponent
+    TableTestComponent,
+    OutdatedSessionComponent
   ],
   imports: [
     BrowserModule,

@@ -21,10 +21,24 @@
   </tbody>
 </table>
 
-<h4 *ngIf="sessions.length!=0">Sessions disponibles</h4>
+<ul class="nav">
+  <li class="nav-item">
+    <button (click)="changeState('outdated')">Ancienne Session</button>
+  </li>
+  <li class="nav-item">
+    <button (click)="changeState('logged')">Session en cours</button>
+  </li>
+  <li class="nav-item">
+    <button (click)="changeState('available')">Session disponible</button>
+  </li>
+</ul>
+
+<div *ngIf="this.state == 'available'">
 <app-sessions *ngFor="let s of sessions" [session]="s" (join)="joinSession($event)"></app-sessions>
-
-<h4 *ngIf="sessionsLogin.length!=0">Sessions Rejointes</h4>
-<app-registered-sessions *ngFor="let s of sessionsLogin" [session]="s" (quit)="quitSession($event)"></app-registered-sessions>
-
-
+</div>
+<div *ngIf="this.state == 'logged'">
+  <app-registered-sessions *ngFor="let s of sessionsLoginActual" [session]="s" (quit)="quitSession($event)"></app-registered-sessions>
+</div>
+<div *ngIf="this.state == 'outdated'">
+  <app-outdated-session *ngFor="let s of sessionsLoginOld" [session]="s"></app-outdated-session>
+</div>

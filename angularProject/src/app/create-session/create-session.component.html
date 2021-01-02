@@ -12,7 +12,7 @@
 
     <div class="form-group">
         <label for="deadline_id">Deadline :</label>
-        <input class="form-control" type="date" name="deadline" id="deadline_id" ngModel required>
+        <input class="form-control" type="datetime-local" name="deadline" id="deadline_id" ngModel required>
     </div>
 
     <div class="text-center"><button type="submit" class="btn btn-success" [disabled]="form.invalid">Envoyer</button></div>

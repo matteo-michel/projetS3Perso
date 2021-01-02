@@ -31,10 +31,10 @@ Session.getById = (p_id, result) => {
     });
 };
 
-Session.getByLogin = (p_login, result) => {
+Session.getByLoginActual = (p_login,p_date, result) => {
     mysql.query(`SELECT * FROM session s
                 JOIN participe p ON p.idSession = s.idSession
-                WHERE p.login = "${p_login}"`,
+                WHERE p.login = "${p_login}" AND deadline > "${p_date}"`,
         (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -46,13 +46,28 @@ Session.getByLogin = (p_login, result) => {
     });
 };
 
-Session.getAllWithoutRegister = (p_login, result) => {
+Session.getByLoginOld = (p_login,p_date, result) => {
+    mysql.query(`SELECT * FROM session s
+                JOIN participe p ON p.idSession = s.idSession
+                WHERE p.login = "${p_login}" AND deadline <= "${p_date}"`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, res);
+
+        });
+};
+
+Session.getAllWithoutRegister = (p_login,p_date, result) => {
     mysql.query(`SELECT * FROM session
                 WHERE idSession
                 NOT IN(
                 SELECT s.idSession FROM session s
                 JOIN participe p ON p.idSession = s.idSession
-                WHERE p.login = "${p_login}");`,
+                WHERE p.login = "${p_login}") AND deadline > "${p_date}";`,
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

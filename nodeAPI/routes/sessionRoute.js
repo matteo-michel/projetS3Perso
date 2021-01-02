@@ -5,10 +5,6 @@ module.exports = app => {
     // Retrieve all Customers
     app.get("/api/sessions", session.findAll);
 
-    app.get("/api/sessions/available/:login", session.findAllWithoutRegistered);
-
-    app.get("/api/sessions/:login", session.findByLogin);
-
     app.get("/api/session/:id", session.getById);
 
     app.post("/api/sessions/quit/", session.removeByLogin);
@@ -16,5 +12,11 @@ module.exports = app => {
     app.post("/api/sessions/join/", session.addToSession);
 
     app.post("/api/sessions/addSession", session.addSession);
+
+    app.post("/api/sessions/actual", session.findByLoginActual);
+
+    app.post("/api/sessions/outdated", session.findByLoginOld);
+
+    app.post("/api/sessions/available", session.findAllWithoutRegistered);
 
 };

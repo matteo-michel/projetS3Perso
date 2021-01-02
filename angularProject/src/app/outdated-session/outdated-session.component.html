@@ -1,0 +1,10 @@
+<div class="card" ngDefaultControl>
+  <div class="card-header">{{session.nomSession}} (id : {{session.idSession}})</div>
+  <div class="card-body">
+    <p>{{session.enonce}}</p>
+    <p>S'est terminé le {{session.deadline}}</p>
+    <button class="btn btn-primary" [routerLink] = "['/session', session.idSession]">Afficher les détails</button>
+    <!--<button (click)="quitSession()" class="btn btn-danger">Quitter la session</button>-->
+
+  </div>
+</div>

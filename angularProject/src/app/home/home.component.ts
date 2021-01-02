@@ -15,8 +15,10 @@ import {TokenStorageService} from '../services/token-storage.service';
 export class HomeComponent implements OnInit {
   login: string = localStorage.getItem('login');
   users: User[] = [];
-  sessionsLogin: Session[] = [];
+  sessionsLoginActual: Session[] = [];
+  sessionsLoginOld: Session[] = [];
   sessions: Session[] = [];
+  state = 'logged';
 
   constructor(private userService: UserService, private sessionService: SessionService,
               private router: Router, private tokenStorage: TokenStorageService) {
@@ -42,14 +44,14 @@ export class HomeComponent implements OnInit {
 
   createUsersArray(data: any): void {
     data.forEach((u) => {
-      const user: User = new User(u['login'], u['nom'], u['prenom'], u['password']);
+      const user: User = new User(u.login, u.nom, u.prenom, u.password);
       this.users.push(user);
     });
   }
 
   createSessionArray(data: any, sessions: Session[]): void {
     data.forEach((s) => {
-      const session = new Session(s['idSession'], s['enonce'], s['deadline'], s['nomSession']);
+      const session = new Session(s.idSession, s.enonce, s.deadline, s.nomSession);
       sessions.push(session);
     });
   }
@@ -71,12 +73,25 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getSessionLogin(): void {
-    this.sessionService.getByLogin(this.tokenStorage.getLogin()).subscribe(
+  getSessionLoginOld(): void {
+    this.sessionService.getByLoginOld(this.tokenStorage.getLogin()).subscribe(
       data => {
-        this.sessionsLogin = [];
+        this.sessionsLoginOld = [];
         const json = JSON.parse(JSON.stringify(data));
-        this.createSessionArray(json, this.sessionsLogin);
+        this.createSessionArray(json, this.sessionsLoginOld);
+      },
+      err => console.log(err),
+      () => {
+        console.log();
+      });
+  }
+
+  getSessionLoginActual(): void {
+    this.sessionService.getByLoginActual(this.tokenStorage.getLogin()).subscribe(
+      data => {
+        this.sessionsLoginActual = [];
+        const json = JSON.parse(JSON.stringify(data));
+        this.createSessionArray(json, this.sessionsLoginActual);
       },
       err => console.log(err),
       () => {
@@ -98,7 +113,22 @@ export class HomeComponent implements OnInit {
   }
 
   resetComponent(): void {
-    this.getSessionLogin();
-    this.getSessions();
+    this.sessionsLoginActual = [];
+    this.sessionsLoginOld = [];
+    this.sessions = [];
+    if (this.state === 'outdated'){
+      this.getSessionLoginOld();
+    }
+    else if (this.state === 'logged') {
+      this.getSessionLoginActual();
+    }
+    else if (this.state === 'available'){
+      this.getSessions();
+    }
+
+ }
+  changeState(state: string): void{
+    this.state = state;
+    this.resetComponent();
   }
 }
