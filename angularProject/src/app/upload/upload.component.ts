@@ -13,7 +13,6 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;

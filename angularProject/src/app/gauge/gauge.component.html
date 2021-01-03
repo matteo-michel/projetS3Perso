@@ -1,0 +1,49 @@
+<div class="content">
+  <div class="gauge">
+    <ngx-gauge *ngIf="performance"
+        [type]="'full'"
+        [value]="performance.solutions"
+        [label]="'Solutions'"
+        [thick]="15"
+        [max]="performance.solutions"
+        [cap]="'round'"
+        [foregroundColor]="'#44bd32'">
+    </ngx-gauge>
+  </div>
+
+  <div class="gauge">
+    <ngx-gauge *ngIf="performance"
+      [type]="'full'"
+      [value]="performance.nodes"
+      [label]="'Nodes'"
+      [thick]="15"
+      [max]="performance.nodes"
+      [cap]="'round'"
+      [foregroundColor]="'#2980b9'">
+    </ngx-gauge>
+  </div>
+
+  <div class="gauge">
+    <ngx-gauge *ngIf="performance"
+      [type]="'full'"
+      [value]="performance.fails"
+      [label]="'Fails'"
+      [thick]="15"
+      [max]="performance.fails"
+      [cap]="'round'"
+      [foregroundColor]="'#e74c3c'">
+    </ngx-gauge>
+  </div>
+
+  <div class="gauge">
+    <ngx-gauge *ngIf="performance"
+      [type]="'full'"
+      [value]="performance.time"
+      [label]="'Time'"
+      [thick]="15"
+      [max]="performance.time"
+      [cap]="'round'"
+      [foregroundColor]="'#f39c12'">
+    </ngx-gauge>
+  </div>
+</div>

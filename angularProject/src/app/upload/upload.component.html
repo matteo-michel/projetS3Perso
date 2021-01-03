@@ -1,7 +1,7 @@
 <div class="container" style="width:600px">
   <div *ngIf="isOutdated==0">
     <div style="margin: 20px">
-      <h3>Upload file</h3>
+      <h3>Déposer un fichier</h3>
     </div>
     <div *ngIf="currentFile" class="progress">
       <div
@@ -29,10 +29,12 @@
       class="list-group list-group-flush"
       *ngFor="let file of fileInfos | async"
     >
-      <li class="list-group-item">
+      <li class="list-group-item file-item">
         <span>{{ file.name }}</span>
-        <button *ngIf="isOutdated==0" (click)="deleteFile(file.name)" class="btn btn-danger">Supprimer le fichier</button>
-        <button (click)="downloadFile(file.name)" class="btn btn-success">Télécharger le fichier</button>
+        <div class="file-button">
+          <button (click)="downloadFile(file.name)" class="btn btn-success"><i class="material-icons">get_app</i></button>
+          <button *ngIf="isOutdated==0" (click)="deleteFile(file.name)" class="btn btn-danger"><i class="material-icons">delete</i></button>
+        </div>
       </li>
     </ul>
   </div>

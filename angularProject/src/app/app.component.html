@@ -1,26 +1,35 @@
-<div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Project</a>
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="">Home</a>
-      </li>
-      <li class="nav-item" [hidden]="isConnected()">
-        <a class="nav-link" routerLink="login">Login</a>
-      </li>
-      <li class="nav-item" [hidden]="!isConnected()">
-        <a class="btn nav-link" (click)="logout()">Deconnexion</a>
-      </li>
-      <li class="nav-item" [hidden]="isConnected()">
-        <a class="btn nav-link" routerLink="register">Register</a>
-      </li>
-      <li class="nav-item" [hidden]="!isConnected()">
-        <a class="btn nav-link" routerLink="addSession">Ajouter une session</a>
-      </li>
-    </div>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined|Material+Icons+Sharp" rel="stylesheet">
+  </head>
+  <body>
+    <div>
+      <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">Project</a>
+        <div class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="">Home</a>
+          </li>
+          <li class="nav-item" [hidden]="isConnected()">
+            <a class="nav-link" routerLink="login">Login</a>
+          </li>
+          <li class="nav-item" [hidden]="!isConnected()">
+            <a class="btn nav-link" (click)="logout()">Deconnexion</a>
+          </li>
+          <li class="nav-item" [hidden]="isConnected()">
+            <a class="btn nav-link" routerLink="register">Register</a>
+          </li>
+          <li class="nav-item" [hidden]="!isConnected()">
+            <a class="btn nav-link" routerLink="addSession">Ajouter une session</a>
+          </li>
+        </div>
 
-  </nav>
-  <div class="container mt-3">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+      </nav>
+      <div class="container mt-3">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </body>
+</html>

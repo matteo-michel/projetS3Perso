@@ -2,7 +2,6 @@ const uploadFile = require("../middleware/upload");
 const Files = require("../models/FileModel");
 const readline = require('readline');
 const fs = require("fs");
-const UserController = require("./UserController");
 
 let data = {};
 var number;
@@ -114,6 +113,20 @@ const getAllFiles = (req, res) => {
     });
 }
 
+const getFileLogin = (req, res) => {
+    if (!req.auth) return res.status(401).send();
+    Files.getAllLogin(req.body.idSession, req.auth.login, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else {
+            res.send(data);
+        }
+    });
+}
+
 
 const getListFiles = (req, res) => {
     if (!req.auth) return res.status(401).send();
@@ -212,7 +225,7 @@ const canUpload = (req,res) => {
             res.send(data);
         }
     });
-}
+};
 
 
 module.exports = {
@@ -222,5 +235,6 @@ module.exports = {
     parse,
     getAllFiles,
     deleteFile,
-    canUpload
+    canUpload,
+    getFileLogin
 };

@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit, Input} from '@angular/core';
 import {FileService} from '../services/file.service';
 import {File} from '../class/file';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {Session} from "../class/session";
 
 export interface FileElement {
   login: string;
@@ -13,15 +14,17 @@ export interface FileElement {
   time: number;
 }
 
-
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.css']
 })
+
 export class ScoreboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  @Input() session: Session;
 
   displayedColumns: string[] = ['login', 'nodes', 'solutions', 'fails', 'time'];
   DATA: FileElement[] = [];
@@ -31,7 +34,6 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   constructor(private fileService: FileService) {}
 
   ngAfterViewInit() {
-    console.log(this.DATA);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -42,7 +44,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.fileService.getAllFiles(2).subscribe(
+    this.fileService.getAllFiles(this.session.idSession).subscribe(
       data => {
         const json = JSON.parse(JSON.stringify(data));
         this.setFiles(json);

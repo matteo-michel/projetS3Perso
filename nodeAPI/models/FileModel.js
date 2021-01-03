@@ -22,6 +22,21 @@ Files.getAll = (p_idSession,result) => {
         });
 };
 
+Files.getAllLogin = (p_idSession, p_login ,result) => {
+    mysql.query('SELECT login,idSession,f.idFile, file, performances, nom FROM fichier f \n' +
+        'JOIN rendu r ON r.idFile = f.idFile\n' +
+        'JOIN depot d ON d.idFile = f.idFile\n' +
+        `WHERE idSession = "${p_idSession}" AND login = "${p_login}"`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            result(null, res);
+        });
+};
+
 Files.addFile = (p_nom,p_file,p_performances,p_login,p_idSession, result) => {
     try {
         mysql.query(`INSERT INTO fichier VALUES (0,"${p_nom}","${p_file}","${p_performances}")`,

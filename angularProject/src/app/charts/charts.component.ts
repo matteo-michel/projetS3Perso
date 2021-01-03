@@ -10,7 +10,6 @@ import * as Highcharts from 'highcharts';
 export class ChartsComponent implements OnInit {
 
   @Input() session: Session;
-  @Input() state: string;
   highcharts = Highcharts;
   chartOptions = {
     chart : {

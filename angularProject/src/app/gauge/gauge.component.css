@@ -1,22 +1,16 @@
-mwl-gauge {
-  width: 150px;
-  height: 150px;
-  display: block;
-  padding: 10px;
+.content {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 2;
+  line-height: normal;
 }
-mwl-gauge > .gauge > .dial {
-  stroke: #eee;
-  stroke-width: 2;
-  fill: rgba(0, 0, 0, 0);
+
+.gauge {
+  margin: 20px;
 }
-mwl-gauge > .gauge > .value {
-  stroke: rgb(47, 227, 255);
-  stroke-width: 2;
-  fill: rgba(0, 0, 0, 0);
-}
-mwl-gauge > .gauge > .value-text {
-  fill: rgb(47, 227, 255);
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 1em;
-}
+

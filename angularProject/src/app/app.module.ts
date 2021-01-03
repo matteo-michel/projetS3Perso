@@ -19,10 +19,12 @@ import { MatInputModule } from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
 import { OutdatedSessionComponent } from './outdated-session/outdated-session.component';
 import { ChartsComponent } from './charts/charts.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { GaugeComponent } from './gauge/gauge.component';
+import {NgxGaugeModule} from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -40,44 +42,45 @@ import { GaugeComponent } from './gauge/gauge.component';
     ChartsComponent,
     GaugeComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'register',
-        component: RegisterComponent
-      },
-      {
-        path: 'session/:id',
-        component: SessionDetailsComponent
-      },
-      {
-        path: 'addSession',
-        component: CreateSessionComponent
-      },
-      {
-        path: 'scoreboard',
-        component: ScoreboardComponent
-      }
-    ]),
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    HighchartsChartModule,
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forRoot([
+            {
+                path: '',
+                component: HomeComponent
+            },
+            {
+                path: 'login',
+                component: LoginComponent
+            },
+            {
+                path: 'register',
+                component: RegisterComponent
+            },
+            {
+                path: 'session/:id',
+                component: SessionDetailsComponent
+            },
+            {
+                path: 'addSession',
+                component: CreateSessionComponent
+            },
+            {
+                path: 'scoreboard',
+                component: ScoreboardComponent
+            }
+        ]),
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        HighchartsChartModule,
+        NgxGaugeModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

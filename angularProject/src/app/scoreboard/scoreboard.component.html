@@ -1,5 +1,5 @@
 <mat-form-field>
-  <mat-label>Filter</mat-label>
+  <mat-label>Rechercher</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input >
 </mat-form-field>
 
@@ -35,7 +35,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">Aucune données ne correspond à la recherche "{{input.value}}"</td>
     </tr>
   </table>
 

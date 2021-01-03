@@ -8,6 +8,7 @@ import {File} from '../class/file';
   providedIn: 'root'
 })
 export class FileService {
+  file: File;
 
   constructor(private http: HttpClient, private tokenService: TokenStorageService) { }
 
@@ -17,5 +18,14 @@ export class FileService {
 
   public getFileFromData(data: JSON): File {
     return new File(data['idFile'],data['file'],data['login'],data['idSession'],data['performances'], data['nom']);
+  }
+
+  public getFileFromSessionLogin(idSession, callback): void {
+    const obs = this.http.post('/api/files/sessions/login', {idSession}, this.tokenService.getHttpOption());
+    obs.subscribe(
+      (data) => {
+        this.file = this.getFileFromData(JSON.parse(JSON.stringify(data[0])));
+        callback(this.file);
+      });
   }
 }

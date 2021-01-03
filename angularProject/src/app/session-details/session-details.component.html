@@ -11,6 +11,11 @@
 </ul>
 <div *ngIf="state=='upload'"><app-upload *ngIf="session" [session]="session" [isOutdated]="isOutdated"></app-upload></div>
 
-<div *ngIf="state=='self'"><app-charts *ngIf="session" [session]="session" [state]="state"></app-charts></div>
+<div *ngIf="state=='self'"><app-gauge *ngIf="session" [session]="session"></app-gauge></div>
 
-<div *ngIf="state=='others'"><app-charts *ngIf="session" [session]="session" [state]="state"></app-charts></div>
+<div *ngIf="state=='others'">
+  <div style="margin-bottom: 15px">
+    <app-scoreboard *ngIf="session" [session]="session"></app-scoreboard>
+  </div>
+  <app-charts *ngIf="session" [session]="session"></app-charts>
+</div>
