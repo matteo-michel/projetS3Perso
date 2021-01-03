@@ -67,10 +67,6 @@ import {NgxGaugeModule} from 'ngx-gauge';
                 path: 'addSession',
                 component: CreateSessionComponent
             },
-            {
-                path: 'scoreboard',
-                component: ScoreboardComponent
-            }
         ]),
         BrowserAnimationsModule,
         MatFormFieldModule,

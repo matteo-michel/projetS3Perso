@@ -16,16 +16,19 @@ export class FileService {
     return this.http.post('/api/files/sessions', {idSession}, this.tokenService.getHttpOption());
   }
 
-  public getFileFromData(data: JSON): File {
-    return new File(data['idFile'],data['file'],data['login'],data['idSession'],data['performances'], data['nom']);
+  public getFileFromData(data): File {
+    return new File(data.idFile, data.file, data.login, data.idSession, data.performances, data.nom);
   }
 
   public getFileFromSessionLogin(idSession, callback): void {
     const obs = this.http.post('/api/files/sessions/login', {idSession}, this.tokenService.getHttpOption());
     obs.subscribe(
       (data) => {
-        this.file = this.getFileFromData(JSON.parse(JSON.stringify(data[0])));
-        callback(this.file);
-      });
+        try {
+          this.file = this.getFileFromData(JSON.parse(JSON.stringify(data[0])));
+          callback(this.file);
+        } catch (err) {
+        }
+      }, error => {});
   }
 }

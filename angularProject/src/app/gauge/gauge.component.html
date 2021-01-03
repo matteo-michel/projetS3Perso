@@ -1,3 +1,13 @@
+<div class="file-info">
+  <div *ngIf="!file">
+    <p>Nom du Fichier : N/a</p>
+    <p>Chemin du Fichier : N/a</p>
+  </div>
+  <div *ngIf="file">
+    <p>Nom du Fichier : {{file.nom}}</p>
+    <p>Chemin du Fichier : {{file.filePath}}</p>
+  </div>
+</div>
 <div class="content">
   <div class="gauge">
     <ngx-gauge *ngIf="performance"

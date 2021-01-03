@@ -1,16 +1,27 @@
 .content {
   display: flex;
   flex-direction: row;
-  margin: auto;
+  margin: 20px auto;
   width: 100%;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  flex-grow: 2;
+  flex-grow: 1;
   line-height: normal;
 }
 
 .gauge {
   margin: 20px;
+  flex-grow: 0;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+p {
+  margin: 0;
 }
 

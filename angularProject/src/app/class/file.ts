@@ -27,7 +27,7 @@ export class File {
     result['nodes'] = Number(this.getPerformance("Nodes"));
     result['solutions'] = Number(this.getPerformance("Solutions"));
     result['fails'] = Number(this.getPerformance("Fails"));
-    result['time'] = Number(this.getPerformance("Building time").replace(',', '.')) + Number(this.getPerformance("Resolution time").replace(',', '.'));
+    result['time'] = (Number(this.getPerformance("Building time").replace(',', '.')) + Number(this.getPerformance("Resolution time").replace(',', '.'))).toFixed(3);
     return result;
   }
 }
