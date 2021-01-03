@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Session} from '../class/session';
 import * as Highcharts from 'highcharts';
+import {FileService} from '../services/file.service';
+import {File} from '../class/file';
 
 @Component({
   selector: 'app-charts',
@@ -11,52 +13,87 @@ export class ChartsComponent implements OnInit {
 
   @Input() session: Session;
   highcharts = Highcharts;
+  files: File [];
   chartOptions = {
-    chart : {
-      plotBorderWidth: null,
-      plotShadow: false
+    chart: {
+      type: 'column'
     },
-    title : {
-      text: 'Browser market shares at a specific website, 2014'
+    title: {
+      text: '' +
+        'Performances des élèves'
     },
-    tooltip : {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    legend : {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+/*      x: 250,
+      y: 100,*/
+      floating: false,
+      borderWidth: 1,
+
+      backgroundColor: (
+        (Highcharts.theme) ||
+        '#FFFFFF'), shadow: true
     },
-    plotOptions : {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
-          style: {
-            color: (Highcharts.theme ) ||
-              'black'
-          }
-        }
+    xAxis: {
+      categories: [], title: {
+        text: null
       }
     },
-    series : [{
-      type: 'pie',
-      name: 'Browser share',
-      data: [
-        ['Firefox',   45.0],
-        ['IE',       26.8],
-        {
-          name: 'Chrome',
-          y: 12.8,
-          sliced: true,
-          selected: true
-        },
-        ['Safari',    8.5],
-        ['Opera',     6.2],
-        ['Others',      0.7]
-      ]
-    }]
+    yAxis : {
+      min: 0,
+      title: {
+        text: 'Valeurs'
+      },
+      labels: {
+        overflow: 'justify'
+      }
+    },
+    plotOptions : {
+      column: {
+        dataLabels: {
+          enabled: true
+        }
+      },
+      series: {
+        stacking: 'normal'
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    series: []
   };
-  constructor() { }
+  isUpToBeDisplayed = 0;
+
+  constructor(private fileService: FileService) {}
 
   ngOnInit(): void {
+    this.fileService.getAllFilesFromSession(this.session.idSession, (res) => {
+      this.files = res;
+      this.setGraph();
+    });
   }
 
+  setGraph(): void {
+    const solutionList = [];
+    const nodesList = [];
+    const failsList = [];
+    const userList = [];
+    this.files.forEach((value) => {
+      userList.push(value.login);
+      const performances  = value.getElementForTable();
+      // @ts-ignore
+      failsList.push(performances.fails);
+      // @ts-ignore
+      nodesList.push(performances.nodes);
+      // @ts-ignore
+      solutionList.push(performances.solutions);
+    });
+    this.chartOptions.xAxis.categories = userList;
+    this.chartOptions.series.push({name: 'Fails', data: failsList});
+    this.chartOptions.series.push({name: 'Solutions', data: solutionList});
+    this.chartOptions.series.push({name: 'Nodes', data: nodesList});
+    this.isUpToBeDisplayed = 1;
+  }
 }

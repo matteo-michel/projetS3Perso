@@ -22,7 +22,6 @@ export class CreateSessionComponent implements OnInit {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     }
-    console.log('onignit');
     this.userService.isAdmin(localStorage.getItem('token')).subscribe(
       (data) => {
           this.isAdmin = data.admin;

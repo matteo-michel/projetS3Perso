@@ -4,11 +4,13 @@ import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from './token-storage.service';
 import {File} from '../class/file';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
   file: File;
+  files: File[] = [];
 
   constructor(private http: HttpClient, private tokenService: TokenStorageService) { }
 
@@ -27,6 +29,20 @@ export class FileService {
         try {
           this.file = this.getFileFromData(JSON.parse(JSON.stringify(data[0])));
           callback(this.file);
+        } catch (err) {
+        }
+      }, error => {});
+  }
+
+  public getAllFilesFromSession(idSession, callback): void {
+    this.getAllFiles(idSession).subscribe(
+      (data) => {
+        try {
+          data.forEach((fileData) => {
+            this.files.push(this.getFileFromData(JSON.parse(JSON.stringify(fileData))));
+          });
+          callback(this.files);
+          this.files = [];
         } catch (err) {
         }
       }, error => {});
