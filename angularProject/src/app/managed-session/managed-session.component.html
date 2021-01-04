@@ -1,0 +1,8 @@
+<div class="card" ngDefaultControl>
+  <div class="card-header">{{session.nomSession}} (id : {{session.idSession}})</div>
+  <div class="card-body">
+    <p>{{session.enonce}}</p>
+    <p>Se termine le {{session.getSessionDate()}} à {{session.getSessionHours()}}</p>
+    <button class="btn btn-outline-primary" [routerLink] = "['/manageSession', session.idSession]">Modifier</button>
+  </div>
+</div>

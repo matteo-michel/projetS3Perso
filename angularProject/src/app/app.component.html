@@ -21,6 +21,9 @@
           <li class="nav-item" [hidden]="!isConnected() || isAdmin == 0">
             <a class="btn nav-link" routerLink="addSession">Ajouter une session</a>
           </li>
+          <li class="nav-item" [hidden]="!isConnected() || isAdmin == 0">
+            <a class="btn nav-link" routerLink="manageSession">Gérer les sessions</a>
+          </li>
         </div>
         <div class="navbar-nav">
           <li class="nav-item" [hidden]="!isConnected()">
@@ -30,7 +33,6 @@
             <a class="btn nav-link" (click)="logout()"><i class="material-icons">exit_to_app</i> Deconnexion</a>
           </li>
         </div>
-
       </nav>
       <div class="container mt-3">
         <router-outlet></router-outlet>

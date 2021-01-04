@@ -38,18 +38,18 @@ export class SessionService {
 
 
   public quit(login: string, idSession: number): Observable<any> {
-    return this.http.post('/api/sessions/quit/', {token: login, id: idSession}, this.tokenService.getHttpOption());
+    return this.http.post('/api/sessions/quit', {token: login, id: idSession}, this.tokenService.getHttpOption());
   }
 
   public join(login: string, idSession: number): Observable<any> {
-    return this.http.post('/api/sessions/join/', {token: login, id: idSession}, this.tokenService.getHttpOption());
+    return this.http.post('/api/sessions/join', {token: login, id: idSession}, this.tokenService.getHttpOption());
   }
 
   public getSession(id: number, callback): void {
     this.getById(id).subscribe(
       data => {
         const json = JSON.parse(JSON.stringify(data));
-        this.session[0] = new Session(json[0].idSession, json[0].enonce, json[0].deadline, json[0].nomSession);
+        this.session[0] = new Session(json[0].idSession, json[0].enonce, json[0].deadline, json[0].nomSession, json[0].disabled);
         callback(this.session[0]);
       },
       err => console.error(err)
@@ -68,10 +68,23 @@ export class SessionService {
     );
   }
   public checkDate(idSession: number): Observable<any> {
-    return this.http.post('/api/sessions/checkDate/', {id: idSession}, this.tokenService.getHttpOption());
+    return this.http.post('/api/sessions/checkDate', {id: idSession}, this.tokenService.getHttpOption());
   }
 
   public addSession(enonce: string, deadline: string, nomSession: string): Observable<any> {
     return this.http.post('/api/sessions/addSession', {enonce, deadline, nomSession}, this.tokenService.getHttpOption());
+  }
+
+  public getEnabled(state: string): Observable<any> {
+    return this.http.post('/api/sessions/manage/enabled', {type: state}, this.tokenService.getHttpOption());
+  }
+
+  public getDisabled(): Observable<any> {
+    return this.http.post('/api/sessions/manage/disabled', {}, this.tokenService.getHttpOption());
+  }
+
+  public modifySession(idSession: number, enonce: string, deadline: string, nomSession: string, disabled: number): Observable<any> {
+    return this.http.post('/api/sessions/modifySession', {idSession, enonce, deadline, nomSession, disabled},
+      this.tokenService.getHttpOption());
   }
 }

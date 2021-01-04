@@ -31,10 +31,52 @@ Session.getById = (p_id, result) => {
     });
 };
 
+Session.getActiveEnabled = (p_date, result) => {
+    mysql.query(`SELECT * FROM session s
+                WHERE disabled = 0 AND deadline > "${p_date}"`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, res);
+
+        });
+};
+
+Session.getOldEnabled = (p_date, result) => {
+    mysql.query(`SELECT * FROM session s
+                WHERE disabled = 0 AND deadline <= "${p_date}"`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, res);
+
+        });
+};
+
+Session.getDisabled = (result) => {
+    mysql.query(`SELECT * FROM session s
+                WHERE disabled = 1`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, res);
+
+        });
+};
+
 Session.getByLoginActual = (p_login,p_date, result) => {
     mysql.query(`SELECT * FROM session s
                 JOIN participe p ON p.idSession = s.idSession
-                WHERE p.login = "${p_login}" AND deadline > "${p_date}"`,
+                WHERE p.login = "${p_login}" AND deadline > "${p_date}" AND disabled = 0`,
         (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -49,7 +91,7 @@ Session.getByLoginActual = (p_login,p_date, result) => {
 Session.getByLoginOld = (p_login,p_date, result) => {
     mysql.query(`SELECT * FROM session s
                 JOIN participe p ON p.idSession = s.idSession
-                WHERE p.login = "${p_login}" AND deadline <= "${p_date}"`,
+                WHERE p.login = "${p_login}" AND deadline <= "${p_date}" AND disabled = 0`,
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -67,7 +109,7 @@ Session.getAllWithoutRegister = (p_login,p_date, result) => {
                 NOT IN(
                 SELECT s.idSession FROM session s
                 JOIN participe p ON p.idSession = s.idSession
-                WHERE p.login = "${p_login}") AND deadline > "${p_date}";`,
+                WHERE p.login = "${p_login}") AND deadline > "${p_date}" AND disabled = 0`,
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -113,6 +155,20 @@ Session.addToSession = (p_login, p_idSession, result) => {
 
 Session.addSession = (p_enonce, p_deadline,p_nomSession,result) => {
     mysql.query(`INSERT INTO session VALUES (0,"${p_enonce}","${p_deadline}","${p_nomSession}")`,
+        (err) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, null);
+        });
+};
+
+Session.modifySession = (p_idSession, p_enonce, p_deadline, p_nomSession, p_disabled, result) => {
+    mysql.query(`UPDATE session SET enonce = "${p_enonce}", deadline = "${p_deadline}",
+                nomSession = "${p_nomSession}", disabled = "${p_disabled}"
+                 WHERE idSession = "${p_idSession}"`,
         (err) => {
             if (err) {
                 console.log("error: ", err);

@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="state=='disabled'" (click)="changeState('disabled')">Sessions désactivées</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="state=='ended'" (click)="changeState('ended')">Sessions terminées</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="state=='active'" (click)="changeState('active')">Sessions actives</a>
+  </li>
+</ul>
+
+
+<div *ngIf="this.state == 'active'">
+  <app-managed-session *ngFor="let s of sessionsActive" [session]="s"></app-managed-session>
+</div>
+<div *ngIf="this.state == 'ended'">
+  <app-managed-session *ngFor="let s of sessionsEnded" [session]="s"></app-managed-session>
+</div>
+<div *ngIf="this.state == 'disabled'">
+  <app-managed-session *ngFor="let s of sessionsDisabled" [session]="s"></app-managed-session>
+</div>

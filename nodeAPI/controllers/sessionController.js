@@ -107,6 +107,24 @@ exports.addSession = (req, res) => {
         }
     });
 }
+
+exports.modifySession= (req, res) => {
+    if (!req.auth) return res.status(401).send();
+    //if(!req.auth.role !== 1) return res.status(403).send();
+    Session.modifySession(req.body.idSession, req.body.enonce, req.body.deadline, req.body.nomSession, req.body.disabled, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else {
+            res.status(200).send({
+                message: "Session ajoute avec succes"
+            });
+        }
+    });
+}
+
 exports.isOutdated = (req, res) => {
     Session.getByIdAndOutdated(req.body.id,dateTime,(err, data) => {
         if (err)
@@ -118,5 +136,41 @@ exports.isOutdated = (req, res) => {
     });
 }
 
+exports.findEnabled = (req, res) => {
+    if (req.body.type === 'active') {
+        Session.getActiveEnabled(dateTime,(err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send({
+                    message:
+                        err.message || "Some error occurred."
+                });
+            } else res.send(data);
+        });
+    }
+    else {
+        Session.getOldEnabled(dateTime,(err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send({
+                    message:
+                        err.message || "Some error occurred."
+                });
+            } else res.send(data);
+        });
+    }
+};
+
+exports.findDisabled = (req, res) => {
+    Session.getDisabled((err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        } else res.send(data);
+    });
+};
 
 

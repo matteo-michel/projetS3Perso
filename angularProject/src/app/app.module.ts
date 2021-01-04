@@ -29,6 +29,9 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { AlertComponent } from './alert/alert.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SessionManagerComponent } from './session-manager/session-manager.component';
+import { ModifySessionComponent } from './modify-session/modify-session.component';
+import { ManagedSessionComponent } from './managed-session/managed-session.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -47,7 +50,10 @@ registerLocaleData(localeFr);
     ChartsComponent,
     GaugeComponent,
     AlertComponent,
-    AlertComponent
+    AlertComponent,
+    SessionManagerComponent,
+    ModifySessionComponent,
+    ManagedSessionComponent
   ],
     imports: [
         BrowserModule,
@@ -74,6 +80,14 @@ registerLocaleData(localeFr);
                 path: 'addSession',
                 component: CreateSessionComponent
             },
+            {
+                path: 'manageSession',
+                component: SessionManagerComponent
+            },
+            {
+                path: 'manageSession/:id',
+                component: ModifySessionComponent
+            }
         ]),
         BrowserAnimationsModule,
         MatFormFieldModule,

@@ -1,0 +1,27 @@
+<div *ngIf="this.session">
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm" class="login">
+    <div class="form-group">
+      <label for="nomSession_id">Nom de Session :</label>
+      <input class="form-control" type="text" name="nomSession" id="nomSession_id" value="{{this.session.nomSession}}" [(ngModel)]="session.nomSession" required>
+    </div>
+    <div class="form-group">
+      <label for="enonce_id">Enoncé :</label>
+      <textarea class="form-control" id="enonce_id" name="enonce" value="{{this.session.enonce}}" [(ngModel)]="session.enonce" required
+                rows="3" cols="50" maxlength=512></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="deadline_id">Deadline :</label>
+      <input class="form-control" type="datetime-local" name="deadline" id="deadline_id" value="{{this.session.deadline}}" [(ngModel)]="session.deadline" required>
+    </div>
+
+    <div class="form-group">
+      <label for="disabled_id">Désactivé :</label>
+      <input type="checkbox" id="disabled_id" name="disabled" [checked]="this.session.disabled" [(ngModel)]="session.disabled">
+
+    </div>
+
+    <div class="text-center"><button type="submit" class="btn btn-success" [disabled]="form.invalid">Envoyer</button></div>
+  </form>
+</div>
+<app-alert *ngIf="success" [type]="'success'" [message]="'La session a bien été modifiée !'"></app-alert>

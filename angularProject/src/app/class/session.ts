@@ -8,12 +8,14 @@ export class Session {
   public enonce: string;
   public deadline: string;
   public nomSession: string;
+  public disabled: number;
 
-  constructor(idSession: number, enonce: string, deadline: string, nomSession: string) {
+  constructor(idSession: number, enonce: string, deadline: string, nomSession: string, disabled: number) {
     this.idSession = idSession;
     this.enonce = enonce;
     this.deadline = deadline;
     this.nomSession = nomSession;
+    this.disabled = disabled;
   }
 
   public static getSessions(sessionService: SessionService): Session[] {
@@ -33,7 +35,7 @@ export class Session {
   static createSessionArray(data: any): Session[] {
     let sessions: Session[] = [];
     data.forEach((s) => {
-      const session = new Session(s['idSession'], s['enonce'], s['deadline'], s['nomSession']);
+      const session = new Session(s['idSession'], s['enonce'], s['deadline'], s['nomSession'], s['disabled']);
       sessions.push(session);
     });
     return sessions;

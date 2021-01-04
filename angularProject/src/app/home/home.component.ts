@@ -13,8 +13,6 @@ import {TokenStorageService} from '../services/token-storage.service';
   providers: [UserService, SessionService]
 })
 export class HomeComponent implements OnInit {
-  login: string = localStorage.getItem('login');
-  users: User[] = [];
   sessionsLoginActual: Session[] = [];
   sessionsLoginOld: Session[] = [];
   sessions: Session[] = [];
@@ -28,30 +26,12 @@ export class HomeComponent implements OnInit {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     }
-    this.userService.getAll().subscribe(
-      data => {
-        const json = JSON.parse(JSON.stringify(data));
-        this.createUsersArray(json);
-
-      },
-      err => console.error(err),
-      () => {
-        console.log();
-      });
-
     this.resetComponent();
-  }
-
-  createUsersArray(data: any): void {
-    data.forEach((u) => {
-      const user: User = new User(u.login, u.nom, u.prenom, u.password);
-      this.users.push(user);
-    });
   }
 
   createSessionArray(data: any, sessions: Session[]): void {
     data.forEach((s) => {
-      const session = new Session(s.idSession, s.enonce, s.deadline, s.nomSession);
+      const session = new Session(s.idSession, s.enonce, s.deadline, s.nomSession, s.disabled);
       sessions.push(session);
     });
   }
