@@ -27,7 +27,6 @@ export class GaugeComponent implements OnInit, AfterViewInit {
 
   //set style for gauge
   ngAfterViewInit(): void {
-    (document.querySelector('.reading-block') as HTMLElement).style.transform = 'translateY(65px)';
     const divs = document.getElementsByClassName('reading-block');
     for (let i = 0 ; i < divs.length ; i++) {
       divs[i].setAttribute('style', 'transform: translateY(65px); font-size: 44px');

@@ -19,7 +19,7 @@ export class UserService {
   }
 
   public getByLogin(login: string): Observable<any> {
-    return this.http.get('/api/users/' + login, httpOptions);
+    return this.http.get('/api/user/' + login, httpOptions);
   }
 
   public checkLogin(login: string, password: string): Observable<any> {

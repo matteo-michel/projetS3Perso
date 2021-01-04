@@ -32,6 +32,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SessionManagerComponent } from './session-manager/session-manager.component';
 import { ModifySessionComponent } from './modify-session/modify-session.component';
 import { ManagedSessionComponent } from './managed-session/managed-session.component';
+import {ProfilComponent} from './profil/profil.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -53,7 +54,8 @@ registerLocaleData(localeFr);
     AlertComponent,
     SessionManagerComponent,
     ModifySessionComponent,
-    ManagedSessionComponent
+    ManagedSessionComponent,
+    ProfilComponent
   ],
     imports: [
         BrowserModule,
@@ -87,7 +89,11 @@ registerLocaleData(localeFr);
             {
                 path: 'manageSession/:id',
                 component: ModifySessionComponent
-            }
+            },
+            {
+              path: 'profil',
+              component: ProfilComponent
+            },
         ]),
         BrowserAnimationsModule,
         MatFormFieldModule,
