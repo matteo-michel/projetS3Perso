@@ -118,7 +118,6 @@ Session.getAllWithoutRegister = (p_login,p_date, result) => {
             }
             result(null, res);
 
-            // not found Customer with the id
         });
 };
 
@@ -133,7 +132,6 @@ Session.removeByLogin = (p_login, p_idSession, result) => {
                 return;
             }
 
-            // not found Customer with the id
             result(null, null);
         });
 };
@@ -147,14 +145,13 @@ Session.addToSession = (p_login, p_idSession, result) => {
                 return;
             }
 
-            // not found Customer with the id
             result(null, null);
         });
 };
 
 
 Session.addSession = (p_enonce, p_deadline,p_nomSession,result) => {
-    mysql.query(`INSERT INTO session VALUES (0,"${p_enonce}","${p_deadline}","${p_nomSession}")`,
+    mysql.query(`INSERT INTO session VALUES (0,"${p_enonce}","${p_deadline}","${p_nomSession}",0)`,
         (err) => {
             if (err) {
                 console.log("error: ", err);

@@ -33,6 +33,7 @@ import { SessionManagerComponent } from './session-manager/session-manager.compo
 import { ModifySessionComponent } from './modify-session/modify-session.component';
 import { ManagedSessionComponent } from './managed-session/managed-session.component';
 import {ProfilComponent} from './profil/profil.component';
+import { UserManagerComponent } from './user-manager/user-manager.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -55,7 +56,8 @@ registerLocaleData(localeFr);
     SessionManagerComponent,
     ModifySessionComponent,
     ManagedSessionComponent,
-    ProfilComponent
+    ProfilComponent,
+    UserManagerComponent
   ],
     imports: [
         BrowserModule,
@@ -91,8 +93,12 @@ registerLocaleData(localeFr);
                 component: ModifySessionComponent
             },
             {
-              path: 'profil',
-              component: ProfilComponent
+                path: 'profil',
+                component: ProfilComponent
+            },
+            {
+                path: 'users',
+                component: UserManagerComponent
             },
         ]),
         BrowserAnimationsModule,

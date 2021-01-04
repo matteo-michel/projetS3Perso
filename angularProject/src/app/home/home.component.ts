@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../services/user.service';
 import {SessionService} from '../services/session.service';
-import {User} from '../class/user';
 import {Session} from '../class/session';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../services/token-storage.service';
@@ -50,7 +49,6 @@ export class HomeComponent implements OnInit {
         this.resetComponent();
       }
     );
-
   }
 
   getSessionLoginOld(): void {
