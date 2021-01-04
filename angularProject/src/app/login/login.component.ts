@@ -12,9 +12,9 @@ import {AppComponent} from '../app.component';
   providers: [UserService]
 })
 export class LoginComponent implements OnInit {
-  appComponent: AppComponent = new AppComponent(this.router);
   connected: Boolean = false;
   cookie: String = '';
+  badPwd = false;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
+    this.badPwd = false;
     const login = form.value.login;
     const pwd = form.value.password;
     try {
@@ -34,11 +35,14 @@ export class LoginComponent implements OnInit {
         data => {
           localStorage.setItem('token', data.token);
           this.connected = true;
-          this.appComponent.isLogin = true;
         },
-        err => console.log('Mauvais mot de passe !'),
+        err => {
+          this.badPwd = true;
+          form.controls['password'].setValue('');
+        },
         () => {
           this.router.navigate(['/']);
+          document.location.reload();
         });
     } catch (err) {
     }

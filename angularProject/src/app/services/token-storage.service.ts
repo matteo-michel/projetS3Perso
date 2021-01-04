@@ -8,6 +8,10 @@ export class TokenStorageService {
 
   constructor() { }
 
+  public static getLoginStatic() {
+    return JSON.parse(atob(localStorage.getItem('token').split('.')[1]))['login'];
+  }
+
   public getLogin() {
     return JSON.parse(atob(localStorage.getItem('token').split('.')[1]))['login'];
   }
@@ -20,4 +24,5 @@ export class TokenStorageService {
   public getHeader() {
     return 'Bearer ' + localStorage.getItem('token');
   }
+
 }

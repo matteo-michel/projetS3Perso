@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link" [class.active]="state=='upload'" role="tab" (click)="changeState('upload')">Upload</a>
+    <a class="nav-link" [class.active]="state=='upload'" role="tab" (click)="changeState('upload')">Détails</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" [class.active]="state=='self'" (click)="changeState('self')">Mon travail</a>
@@ -9,7 +9,14 @@
     <a class="nav-link" [class.active]="state=='others'" (click)="changeState('others')">Mon groupe</a>
   </li>
 </ul>
-<div *ngIf="state=='upload'"><app-upload *ngIf="session" [session]="session" [isOutdated]="isOutdated"></app-upload></div>
+<div *ngIf="state=='upload'">
+  <div class="session-info" *ngIf="session">
+    <h3>{{session.nomSession}}</h3>
+    <p>Description : {{session.enonce}}</p>
+    <p>La date de rendu maximum est le {{session.getSessionDate()}} à {{session.getSessionHours()}}</p>
+  </div>
+  <app-upload *ngIf="session" [session]="session" [isOutdated]="isOutdated"></app-upload>
+</div>
 
 <div *ngIf="state=='self'"><app-gauge *ngIf="session" [session]="session"></app-gauge></div>
 

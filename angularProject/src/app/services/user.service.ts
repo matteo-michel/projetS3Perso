@@ -30,7 +30,16 @@ export class UserService {
     return this.http.post('/api/users/register', {login, nom, prenom, pwd: password}, httpOptions);
   }
 
-  public isAdmin(token: string): Observable<any> {
-    return (this.http.post('/api/user/admin', {token}, this.tokenService.getHttpOption()));
+  public isAdmin(): Observable<any> {
+    return (this.http.post('/api/user/admin', {}, this.tokenService.getHttpOption()));
   }
+
+  public checkAdmin(callback): void {
+    this.isAdmin().subscribe(
+      data => {
+        data.admin === 1 ? callback(1) : callback(0);
+      }
+    );
+  }
+
 }

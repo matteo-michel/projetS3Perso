@@ -12,7 +12,7 @@
 
 
 <div *ngIf="this.state == 'available'">
-<app-sessions *ngFor="let s of sessions" [session]="s" (join)="joinSession($event)"></app-sessions>
+  <app-sessions *ngFor="let s of sessions" [session]="s" (join)="joinSession($event)"></app-sessions>
 </div>
 <div *ngIf="this.state == 'logged'">
   <app-registered-sessions *ngFor="let s of sessionsLoginActual" [session]="s" (quit)="quitSession($event)"></app-registered-sessions>

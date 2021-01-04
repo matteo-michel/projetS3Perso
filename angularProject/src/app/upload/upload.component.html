@@ -1,4 +1,4 @@
-<div class="container" style="width:600px">
+<div class="container">
   <div *ngIf="isOutdated==0">
     <div style="margin: 20px">
       <h3>Déposer un fichier</h3>
@@ -16,13 +16,17 @@
       </div>
     </div>
 
-    <label class="btn btn-default">
-      <input type="file" (change)="selectFile($event)" accept=".jar"/>
-    </label>
-    <button *ngIf="canUpload==1" class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Envoyer</button>
+    <div class="file-input">
+      <label class="btn btn-default">
+        <input type="file" (change)="selectFile($event)" accept=".jar"/>
+      </label>
+      <button *ngIf="canUpload==1" class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Envoyer <i class="material-icons">publish</i></button>
+    </div>
+
     <p *ngIf="canUpload==0">Vous ne pouvez avoir qu'un seul fichier à la fois</p>
     <div class="alert alert-light" role="alert">{{ message }}</div>
   </div>
+
   <div class="card">
     <div class="card-header">Liste des fichiers envoyés</div>
     <ul

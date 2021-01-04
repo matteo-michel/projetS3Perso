@@ -1,4 +1,5 @@
 import {SessionService} from '../services/session.service';
+import {DatePipe, formatDate} from '@angular/common';
 
 
 export class Session {
@@ -36,6 +37,14 @@ export class Session {
       sessions.push(session);
     });
     return sessions;
+  }
+
+  public getSessionDate(): string {
+    return formatDate(this.deadline, 'dd/MM/yyyy', 'fr-FR');
+  }
+
+  public getSessionHours(): string {
+    return formatDate(this.deadline, 'HH:mm:ss', 'fr-FR');
   }
 
 

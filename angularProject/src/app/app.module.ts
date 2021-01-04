@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -25,6 +25,11 @@ import { ChartsComponent } from './charts/charts.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { GaugeComponent } from './gauge/gauge.component';
 import {NgxGaugeModule} from 'ngx-gauge';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { AlertComponent } from './alert/alert.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -40,7 +45,9 @@ import {NgxGaugeModule} from 'ngx-gauge';
     ScoreboardComponent,
     OutdatedSessionComponent,
     ChartsComponent,
-    GaugeComponent
+    GaugeComponent,
+    AlertComponent,
+    AlertComponent
   ],
     imports: [
         BrowserModule,
@@ -76,8 +83,9 @@ import {NgxGaugeModule} from 'ngx-gauge';
         MatPaginatorModule,
         HighchartsChartModule,
         NgxGaugeModule,
+        NgbModule,
     ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,5 +11,6 @@
     <div class="text-center"><button type="submit" class="btn btn-success" [disabled]="form.invalid">Envoyer</button></div>
   </form>
 </div>
+<app-alert *ngIf="badPwd" [message]="'Le mot de passe ne correspond pas à cet utilisateur !'" [type]="'danger'"></app-alert>
 
 

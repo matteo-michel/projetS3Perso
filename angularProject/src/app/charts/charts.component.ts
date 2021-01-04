@@ -20,7 +20,7 @@ export class ChartsComponent implements OnInit {
     },
     title: {
       text: '' +
-        'Performances des élèves'
+        'Performances des Jars rendus'
     },
     legend : {
       layout: 'vertical',

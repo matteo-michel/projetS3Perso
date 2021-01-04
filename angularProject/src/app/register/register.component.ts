@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
-import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'app-register',
@@ -10,7 +9,6 @@ import {AppComponent} from "../app.component";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  appComponent: AppComponent = new AppComponent(this.router);
   connected: Boolean = false;
   cookie: String = '';
 

@@ -1,3 +1,14 @@
 .nav-link {
   cursor: default;
 }
+
+.session-info {
+  margin: 20px;
+  border-bottom: #343A40 1px solid;
+  padding: 10px;
+}
+
+a {
+  user-select: none;
+}
+

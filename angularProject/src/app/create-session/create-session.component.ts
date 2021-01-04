@@ -11,10 +11,10 @@ import {UserService} from '../services/user.service';
   styleUrls: ['./create-session.component.css']
 })
 export class CreateSessionComponent implements OnInit {
-  appComponent: AppComponent = new AppComponent(this.router);
   connected: Boolean = false;
   cookie: String = '';
   isAdmin = 0;
+  success = false;
 
   constructor(private sessionService: SessionService, private userService: UserService, private router: Router) { }
 
@@ -22,7 +22,7 @@ export class CreateSessionComponent implements OnInit {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     }
-    this.userService.isAdmin(localStorage.getItem('token')).subscribe(
+    this.userService.isAdmin().subscribe(
       (data) => {
           this.isAdmin = data.admin;
 
@@ -39,9 +39,12 @@ export class CreateSessionComponent implements OnInit {
       this.sessionService.addSession(enonce, deadline, nomSession).subscribe(
         data => {
         },
-        err => console.log('Le login existe déjà !'),
+        err => console.log(),
         () => {
-          this.router.navigate(['/login']);
+          this.success = true;
+          form.controls['enonce'].setValue('');
+          form.controls['deadline'].setValue('');
+          form.controls['nomSession'].setValue('');
         });
     } catch (err) {
     }

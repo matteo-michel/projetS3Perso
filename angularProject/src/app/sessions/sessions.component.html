@@ -2,7 +2,7 @@
   <div class="card-header">{{session.nomSession}} (id : {{session.idSession}})</div>
   <div class="card-body">
     <p>{{session.enonce}}</p>
-    <p>Se termine le {{session.deadline}}</p>
+    <p>Se termine le {{session.getSessionDate()}} à {{session.getSessionHours()}}</p>
     <button (click)="joinSession()" class="btn btn-success">Rejoindre la session</button>
   </div>
 </div>
