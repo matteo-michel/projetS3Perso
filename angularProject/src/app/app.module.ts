@@ -34,6 +34,7 @@ import { ModifySessionComponent } from './modify-session/modify-session.componen
 import { ManagedSessionComponent } from './managed-session/managed-session.component';
 import {ProfilComponent} from './profil/profil.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -110,6 +111,7 @@ registerLocaleData(localeFr);
         HighchartsChartModule,
         NgxGaugeModule,
         NgbModule,
+        FontAwesomeModule,
     ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
