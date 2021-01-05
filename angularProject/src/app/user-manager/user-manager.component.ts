@@ -22,4 +22,21 @@ export class UserManagerComponent implements OnInit {
     );
   }
 
+  denieUser(login: string): void {
+    this.userService.remove(login).subscribe();
+    this.resetComponent();
+  }
+
+  acceptUser(login: string): void {
+    this.userService.setAccept(login).subscribe();
+    this.resetComponent();
+  }
+
+  resetComponent(): void {
+    this.userService.getAll().subscribe(
+      data => {
+        this.users = data;
+      }
+    );
+  }
 }

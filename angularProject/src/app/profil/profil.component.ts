@@ -18,7 +18,7 @@ export class ProfilComponent implements OnInit {
     this.userService.getByLogin(this.tokenService.getLogin()).subscribe(
       data => {
         const json = JSON.parse(JSON.stringify(data));
-        this.user = new User(json['login'], json['nom'], json['prenom'], json['password']);
+        this.user = new User(json['login'], json['nom'], json['prenom'], json['password'], json['email'], json['isAccept']);
       }
     );
   }

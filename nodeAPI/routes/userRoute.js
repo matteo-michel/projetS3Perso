@@ -11,4 +11,10 @@ module.exports = app => {
 
     app.post("/api/user/admin", user.isAdmin);
 
+    app.post("/api/user/accept", user.isAccept);
+
+    app.post("/api/user/setAccept", user.setAccept);
+
+    app.post("/api/user/remove", user.remove);
+
 };

@@ -38,7 +38,7 @@ User.findByLogin = (p_login, result) => {
 };
 
 User.checkLogin = (p_login, p_pwd, result) => {
-    mysql.query(`SELECT * FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
+    mysql.query(`SELECT * FROM utilisateur WHERE login = "${p_login}" AND isAccept = 1`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -48,9 +48,9 @@ User.checkLogin = (p_login, p_pwd, result) => {
     });
 }
 
-User.register = (p_login,p_nom, p_prenom, p_pwd, result) => {
+User.register = (p_login,p_nom, p_prenom, p_pwd, p_email,result) => {
     var hashedPassword = passwordHash.generate(p_pwd);
-    mysql.query(`INSERT INTO utilisateur VALUES ("${p_login}", "${p_nom}", "${p_prenom}", "${hashedPassword}", 0)`, (err, res) => {
+    mysql.query(`INSERT INTO utilisateur VALUES ("${p_login}", "${p_nom}", "${p_prenom}", "${hashedPassword}", 0,"${p_email}", 0)`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -62,6 +62,39 @@ User.register = (p_login,p_nom, p_prenom, p_pwd, result) => {
 
 User.isAdmin = (p_login, result) => {
     mysql.query(`SELECT admin FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
+User.isAccept = (p_login, result) => {
+    mysql.query(`SELECT isAccept FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
+User.setAccept = (p_login, result) => {
+    mysql.query(`UPDATE utilisateur SET isAccept = '1' WHERE login = "${p_login}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
+User.remove = (p_login, result) => {
+    mysql.query(`DELETE FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

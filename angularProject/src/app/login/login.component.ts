@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     const login = form.value.login;
     const pwd = form.value.password;
     try {
+      if (this.userService.getByLogin(login))
       this.userService.checkLogin(login, pwd).subscribe(
         data => {
           localStorage.setItem('token', data.token);

@@ -42,4 +42,24 @@ export class UserService {
     );
   }
 
+  public isAccept(): Observable<any> {
+    return (this.http.post('/api/user/accept', {}, this.tokenService.getHttpOption()));
+  }
+
+  public setAccept(login: string): Observable<any> {
+    return (this.http.post('/api/user/setAccept', {login}, this.tokenService.getHttpOption()));
+  }
+
+  public remove(login: string): Observable<any> {
+    return (this.http.post('/api/user/remove', {login}, this.tokenService.getHttpOption()));
+  }
+
+  public checkAccept(callback): void {
+    this.isAdmin().subscribe(
+      data => {
+        data.isAccept === 1 ? callback(1) : callback(0);
+      }
+    );
+  }
+
 }
