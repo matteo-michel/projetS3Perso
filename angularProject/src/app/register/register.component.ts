@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class RegisterComponent implements OnInit {
   connected: Boolean = false;
   cookie: String = '';
+  badLogin = false;
 
 
   constructor(private userService: UserService, private router: Router) { }
@@ -28,11 +29,19 @@ export class RegisterComponent implements OnInit {
     const nom = form.value.nom;
     const prenom = form.value.prenom;
     const pwd = form.value.password;
+    const email = form.value.email;
     try {
-      this.userService.register(login, nom, prenom, pwd).subscribe(
+      this.userService.register(login, nom, prenom, pwd, email).subscribe(
         data => {
         },
-        err => console.log('Le login existe déjà !'),
+        err => {
+          this.badLogin = true;
+          form.controls['login'].setValue('');
+          form.controls['nom'].setValue('');
+          form.controls['prenom'].setValue('');
+          form.controls['password'].setValue('');
+          form.controls['email'].setValue('');
+        },
         () => {
           this.router.navigate(['/login']);
         });

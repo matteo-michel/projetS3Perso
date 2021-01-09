@@ -34,7 +34,8 @@ import { ModifySessionComponent } from './modify-session/modify-session.componen
 import { ManagedSessionComponent } from './managed-session/managed-session.component';
 import {ProfilComponent} from './profil/profil.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AuthGuardService} from './services/auth-guard.service';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -67,7 +68,8 @@ registerLocaleData(localeFr);
         RouterModule.forRoot([
             {
                 path: '',
-                component: HomeComponent
+                component: HomeComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'login',
@@ -79,31 +81,38 @@ registerLocaleData(localeFr);
             },
             {
                 path: 'session/:id',
-                component: SessionDetailsComponent
+                component: SessionDetailsComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'addSession',
-                component: CreateSessionComponent
+                component: CreateSessionComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'manageSession',
-                component: SessionManagerComponent
+                component: SessionManagerComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'manageSession/:id',
-                component: ModifySessionComponent
+                component: ModifySessionComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'profil',
-                component: ProfilComponent
+                component: ProfilComponent,
+                canActivate: [AuthGuardService]
             },
             {
-              path: 'profil/:login',
-              component: ProfilComponent
+                path: 'profil/:login',
+                component: ProfilComponent,
+                canActivate: [AuthGuardService]
             },
             {
                 path: 'users',
-                component: UserManagerComponent
+                component: UserManagerComponent,
+                canActivate: [AuthGuardService]
             },
         ]),
         BrowserAnimationsModule,
