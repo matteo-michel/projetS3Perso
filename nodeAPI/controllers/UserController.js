@@ -61,7 +61,7 @@ exports.checkLogin = (req, res) => {
             });
         else if (data.length !== 0 && passwordHash.verify(req.body.pwd, data[0]['password'])) {
             const token = jwt.sign(
-                { login: data[0].login},
+                { login: data[0].login, role: data[0].admin},
                 jwtConfig.secret_key
             );
             res.status(200).json({
@@ -102,6 +102,30 @@ exports.isAccept = (req, res) => {
 exports.setAccept = (req, res) => {
     if(!req.auth || req.auth.admin === 0) return res.status(401).send();
     User.setAccept(req.body.login,(err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else res.send(data[0]);
+    });
+}
+
+exports.promote = (req, res) => {
+    if(!req.auth || req.auth.admin === 0) return res.status(401).send();
+    User.promote(req.body.login,(err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred."
+            });
+        else res.send(data[0]);
+    });
+};
+
+exports.demote = (req, res) => {
+    if(!req.auth || req.auth.admin === 0) return res.status(401).send();
+    User.demote(req.body.login,(err, data) => {
         if (err)
             res.status(500).send({
                 message:

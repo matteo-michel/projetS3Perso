@@ -17,4 +17,8 @@ module.exports = app => {
 
     app.post("/api/user/remove", user.remove);
 
+    app.post("/api/user/promote", user.promote);
+
+    app.post("/api/user/demote", user.demote);
+
 };

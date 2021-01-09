@@ -93,6 +93,28 @@ User.setAccept = (p_login, result) => {
     });
 }
 
+User.promote = (p_login, result) => {
+    mysql.query(`UPDATE utilisateur SET admin = '1' WHERE login = "${p_login}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
+User.demote = (p_login, result) => {
+    mysql.query(`UPDATE utilisateur SET admin = '0' WHERE login = "${p_login}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+}
+
 User.remove = (p_login, result) => {
     mysql.query(`DELETE FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
         if (err) {

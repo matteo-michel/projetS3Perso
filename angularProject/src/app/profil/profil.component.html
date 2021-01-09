@@ -8,6 +8,8 @@
               <div class="card-block text-center text-white">
                 <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
                 <h6 class="f-w-600">{{user.prenom}} {{user.nom}}</h6>
+                <h6 class="f-w-600" *ngIf="user.isAdmin == 1">Administrateur</h6>
+                <h6 class="f-w-600" *ngIf="user.isAdmin == 0">Utilisateur</h6>
               </div>
             </div>
             <div class="col-sm-8">
@@ -18,11 +20,15 @@
                     <p class="m-b-10 f-w-600">Login</p>
                     <h6 class="text-muted f-w-400">{{user.login}}</h6>
                   </div>
-                </div>
-                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Modifications</h6>
-                <div class="row">
                   <div class="col-sm-6">
-                    <a role="button" class="btn btn-primary" href="index.php?controller=utilisateur&action=update">Modifier le mot de passe</a>
+                    <p class="m-b-10 f-w-600">Mail</p>
+                    <h6 class="text-muted f-w-400">{{user.email}}</h6>
+                  </div>
+                </div>
+                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600" *ngIf="login == userLogin">Modifications</h6>
+                <div class="row" *ngIf="login == userLogin">
+                  <div class="col-sm-6">
+                    <a role="button" class="btn btn-primary" href="">Modifier le mot de passe</a>
                   </div>
                 </div>
               </div>
@@ -33,4 +39,5 @@
     </div>
   </div>
 </div>
+<app-alert *ngIf="error" [type]="'danger'" [message]="'Il n\'y pas d\'utilisateur avec ce login !'"></app-alert>
 

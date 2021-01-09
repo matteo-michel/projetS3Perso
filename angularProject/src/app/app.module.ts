@@ -98,6 +98,10 @@ registerLocaleData(localeFr);
                 component: ProfilComponent
             },
             {
+              path: 'profil/:login',
+              component: ProfilComponent
+            },
+            {
                 path: 'users',
                 component: UserManagerComponent
             },

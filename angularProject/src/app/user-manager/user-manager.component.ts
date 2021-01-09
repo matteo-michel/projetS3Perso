@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../services/user.service';
 import {User} from '../class/user';
+import {log} from "util";
 
 @Component({
   selector: 'app-user-manager',
@@ -40,8 +41,24 @@ export class UserManagerComponent implements OnInit {
   resetComponent(): void {
     this.userService.getAll().subscribe(
       data => {
-        this.users = data;
+        this.users = [];
+        data.forEach((u) => {
+          const json = JSON.parse(JSON.stringify(u));
+          const user = new User(json['login'], json['nom'], json['prenom'], json['password'],
+            json['email'], json['isAccept'], json['admin']);
+          this.users.push(user);
+        });
       }
     );
+  }
+
+  promote(login: string): void {
+    this.userService.promote(login).subscribe();
+    this.resetComponent();
+  }
+
+  demote(login: string): void {
+    this.userService.demote(login).subscribe();
+    this.resetComponent();
   }
 }

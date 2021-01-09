@@ -54,6 +54,14 @@ export class UserService {
     return (this.http.post('/api/user/remove', {login}, this.tokenService.getHttpOption()));
   }
 
+  public promote(login: string): Observable<any> {
+    return (this.http.post('/api/user/promote', {login}, this.tokenService.getHttpOption()));
+  }
+
+  public demote(login: string): Observable<any> {
+    return (this.http.post('/api/user/demote', {login}, this.tokenService.getHttpOption()));
+  }
+
   public checkAccept(callback): void {
     this.isAdmin().subscribe(
       data => {
