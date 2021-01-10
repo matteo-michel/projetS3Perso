@@ -1,5 +1,6 @@
 module.exports = app => {
     const user = require("../controllers/UserController.js");
+    const mailer = require("../controllers/mailController");
       
     app.get("/api/users", user.findAll);
 
@@ -20,5 +21,7 @@ module.exports = app => {
     app.post("/api/user/promote", user.promote);
 
     app.post("/api/user/demote", user.demote);
+
+    app.post("/api/registerMail", mailer.requestRegisterMail);
 
 };

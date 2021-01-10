@@ -44,10 +44,12 @@ exports.register = (req, res) => {
             res.status(403).send({
                 message:
                     err.message || "Some error occurred."
-            }); else {
-            res.status(200).send({
-                message: "Tout va bien"
             });
+        else {
+            res.redirect('/api/registerMail');
+            // res.status(200).send({
+            //     message: "Tout va bien"
+            // });
         }
     });
 };

@@ -48,22 +48,29 @@ const parse = (req, res) => {
     if(!req.auth) return res.status(401).send();
     const filePath = "session" + req.body.idSession + '/' + req.file.filename;
     const { exec } = require("child_process");
-    const filename = "Golomb.jar";
+    const filename = "Golomb.jar"
     const arg = 4;
 
-    exec("java -jar ./jar/" + filename +  " -m " + arg, (error, stdout, stderr) => {
+    exec("java -jar ./jar/" + filePath +  " -m " + arg, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
-            return res.status(500).send;
+            return res.status(500).send();
         }
         if (stderr) {
             console.log(`stderr: ${stderr}`);
-            return res.status(500).send;
+            return res.status(500).send();
         }
-        //console.log(`stdout: ${stdout}`);
-        const fileTxt = "golomb" + arg +".txt";
+
+        const fileTxt = req.file.originalname.replace(/.jar$/g, arg + '.txt').toLowerCase();
+        //console.log(req.file.originalname.replace(/.jar$/g, arg + '.txt'));
+        if(!fs.existsSync(fileTxt)) {
+            fs.unlinkSync(__basedir + "/jar/" + filePath);
+            req.body.fileName = req.file.filename;
+            deleteFile(req, res);
+            return res.status(500).send();
+        }
         const readInterface = readline.createInterface({
-            input: fs.createReadStream(fileTxt),
+            input: fs.createReadStream(__basedir + '/' +  fileTxt),
             console: false
         });
 
@@ -209,8 +216,9 @@ const deleteFile = (req, res) => {
             res.status(201).send;
         }
     });
-    //console.log(__basedir + '/jar/' +filePath);
-    fs.unlinkSync(__basedir + '/jar/' +filePath);
+    if(fs.existsSync(__basedir + '/jar/' + filePath)) {
+        fs.unlinkSync(__basedir + '/jar/' + filePath);
+    }
 };
 
 const canUpload = (req,res) => {

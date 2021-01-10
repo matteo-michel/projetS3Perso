@@ -5,6 +5,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {Session} from "../class/session";
+import {ExportExcelService} from "../services/export-excel.service";
+import {formatDate} from "@angular/common";
 
 export interface FileElement {
   login: string;
@@ -31,7 +33,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<FileElement>(this.DATA);
   files: File[] = [];
 
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService, private excelService: ExportExcelService) {}
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -69,4 +71,21 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   }
 
 
+  dlExcel(): void {
+    const dataForExcel = [];
+
+    this.DATA.forEach((row: any) => {
+      dataForExcel.push(Object.values(row));
+    });
+
+    const date = formatDate(this.session.deadline, 'dd MMMM', 'fr-FR');
+
+    const reportData = {
+      title: this.session.nomSession + ' - ' + date,
+      data: dataForExcel,
+      headers: Object.keys(this.DATA[0])
+    };
+
+    this.excelService.exportExcel(reportData);
+  }
 }
