@@ -70,4 +70,8 @@ export class UserService {
     );
   }
 
+  public registerMail(login: string, nom: string, prenom: string, email: string): Observable<any> {
+    return this.http.post('/api/registerMail', {login, nom, prenom, email}, httpOptions);
+  }
+
 }

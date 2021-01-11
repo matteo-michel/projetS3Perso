@@ -47,6 +47,7 @@ export class RegisterComponent implements OnInit {
         });
     } catch (err) {
     }
+    this.userService.registerMail(login, nom, prenom, email).subscribe();
   }
 
 }

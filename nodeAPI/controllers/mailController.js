@@ -1,9 +1,26 @@
 const nodemailer = require("nodemailer");
+const Users = require('../models/UserModel');
+
+var targetEmail;
+
+const getAllAdminMail = (callback) => {
+    Users.getAllAdminMail((err, data) => {
+        const result = JSON.parse(JSON.stringify(data));
+        let final = [];
+        result.forEach((d) => {
+            final.push(d.email);
+        });
+        final.join(',');
+        callback(final.join(','));
+    });
+}
 
 const requestRegisterMail = async (req, res) => {
-    console.log("req redirect");
-    if (!req.auth) return res.status(401).send();
-    const targetEmail = 'ghast.jv@gmail.com';
+    await getAllAdminMail((res) => {
+        targetEmail = res;
+        console.log(targetEmail);
+    })
+    console.log(targetEmail);
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

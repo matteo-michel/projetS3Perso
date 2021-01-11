@@ -20,6 +20,17 @@ User.getAll = result => {
     });
 };
 
+User.getAllAdminMail = result => {
+    mysql.query("SELECT email FROM utilisateur WHERE admin = 1", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+};
+
 User.findByLogin = (p_login, result) => {
     mysql.query(`SELECT * FROM utilisateur WHERE login = "${p_login}"`, (err, res) => {
         if (err) {
