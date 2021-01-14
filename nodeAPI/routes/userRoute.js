@@ -24,4 +24,8 @@ module.exports = app => {
 
     app.post("/api/registerMail", mailer.requestRegisterMail);
 
+    app.post("/api/acceptMail", mailer.sendAcceptMail)
+
+    app.post("/api/refuseMail", mailer.sendRefuseMail)
+
 };

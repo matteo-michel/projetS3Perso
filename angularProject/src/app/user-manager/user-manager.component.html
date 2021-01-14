@@ -3,7 +3,7 @@
   <div class="boutton">
     <button *ngIf="user.isAdmin == 1 && user.isAccept" (click)="demote(user.login)" class="btn btn-primary"><i class="material-icons">verified_user</i> Administrateur</button>
     <button *ngIf="user.isAdmin == 0 && user.isAccept" (click)="promote(user.login)" class="btn btn-success"><i class="material-icons">emoji_events</i> Promouvoir</button>
-    <button *ngIf="!user.isAccept" (click)="acceptUser(user.login)" class="btn btn-success"><i class="material-icons">check_circle</i> Accepter Utilisateur</button>
-    <button *ngIf="!user.isAccept" (click)="denieUser(user.login)" class="btn btn-danger"><i class="material-icons">cancel</i> Refuser Utilisateur</button>
+    <button *ngIf="!user.isAccept" (click)="acceptUser(user.login, user.email)" class="btn btn-success"><i class="material-icons">check_circle</i> Accepter Utilisateur</button>
+    <button *ngIf="!user.isAccept" (click)="denieUser(user.login, user.email)" class="btn btn-danger"><i class="material-icons">cancel</i> Refuser Utilisateur</button>
   </div>
 </div>

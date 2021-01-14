@@ -28,12 +28,14 @@ export class UserManagerComponent implements OnInit {
     );
   }
 
-  denieUser(login: string): void {
+  denieUser(login: string, email: string): void {
+    this.userService.refuseMail(email).subscribe();
     this.userService.remove(login).subscribe();
     this.resetComponent();
   }
 
-  acceptUser(login: string): void {
+  acceptUser(login: string, email: string): void {
+    this.userService.acceptMail(email).subscribe();
     this.userService.setAccept(login).subscribe();
     this.resetComponent();
   }

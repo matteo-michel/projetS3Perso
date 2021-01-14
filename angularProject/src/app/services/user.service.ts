@@ -74,4 +74,12 @@ export class UserService {
     return this.http.post('/api/registerMail', {login, nom, prenom, email}, httpOptions);
   }
 
+  public acceptMail(email: string): Observable<any> {
+    return this.http.post('/api/acceptMail', {email}, this.tokenService.getHttpOption());
+  }
+
+  public refuseMail(email: string): Observable<any> {
+    return this.http.post('/api/refuseMail', {email}, this.tokenService.getHttpOption());
+  }
+
 }
