@@ -35,8 +35,9 @@ export class CreateSessionComponent implements OnInit {
     const enonce = form.value.enonce;
     const deadline = form.value.deadline;
     const nomSession = form.value.nomSession;
+    const argument = form.value.argument;
     try {
-      this.sessionService.addSession(enonce, deadline, nomSession).subscribe(
+      this.sessionService.addSession(enonce, deadline, nomSession, argument).subscribe(
         data => {
         },
         err => console.log(),
@@ -45,6 +46,7 @@ export class CreateSessionComponent implements OnInit {
           form.controls['enonce'].setValue('');
           form.controls['deadline'].setValue('');
           form.controls['nomSession'].setValue('');
+          form.controls['argument'].setValue('');
         });
     } catch (err) {
     }

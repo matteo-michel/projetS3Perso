@@ -49,7 +49,8 @@ export class SessionService {
     this.getById(id).subscribe(
       data => {
         const json = JSON.parse(JSON.stringify(data));
-        this.session[0] = new Session(json[0].idSession, json[0].enonce, json[0].deadline, json[0].nomSession, json[0].disabled);
+        this.session[0] = new Session(json[0].idSession, json[0].enonce, json[0].deadline,
+          json[0].nomSession, json[0].disabled, json[0].argument);
         callback(this.session[0]);
       },
       err => console.error(err)
@@ -71,8 +72,8 @@ export class SessionService {
     return this.http.post('/api/sessions/checkDate', {id: idSession}, this.tokenService.getHttpOption());
   }
 
-  public addSession(enonce: string, deadline: string, nomSession: string): Observable<any> {
-    return this.http.post('/api/sessions/addSession', {enonce, deadline, nomSession}, this.tokenService.getHttpOption());
+  public addSession(enonce: string, deadline: string, nomSession: string, argument: string): Observable<any> {
+    return this.http.post('/api/sessions/addSession', {enonce, deadline, nomSession, argument}, this.tokenService.getHttpOption());
   }
 
   public getEnabled(state: string): Observable<any> {
@@ -83,8 +84,9 @@ export class SessionService {
     return this.http.post('/api/sessions/manage/disabled', {}, this.tokenService.getHttpOption());
   }
 
-  public modifySession(idSession: number, enonce: string, deadline: string, nomSession: string, disabled: number): Observable<any> {
-    return this.http.post('/api/sessions/modifySession', {idSession, enonce, deadline, nomSession, disabled},
+  public modifySession(idSession: number, enonce: string, deadline: string, nomSession: string, disabled: number, argument: string)
+    : Observable<any> {
+    return this.http.post('/api/sessions/modifySession', {idSession, enonce, deadline, nomSession, disabled, argument},
       this.tokenService.getHttpOption());
   }
 }

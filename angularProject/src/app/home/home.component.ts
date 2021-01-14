@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   createSessionArray(data: any, sessions: Session[]): void {
     data.forEach((s) => {
-      const session = new Session(s.idSession, s.enonce, s.deadline, s.nomSession, s.disabled);
+      const session = new Session(s.idSession, s.enonce, s.deadline, s.nomSession, s.disabled, s.argument);
       sessions.push(session);
     });
   }

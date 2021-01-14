@@ -30,8 +30,9 @@ export class ModifySessionComponent implements OnInit {
     const nomSession = form.value.nomSession;
     const disabled = form.value.disabled;
     const disabledValue = disabled === true ? 1 : 0;
+    const argument = form.value.argument;
     try {
-      this.sessionService.modifySession(this.session.idSession, enonce, deadline, nomSession, disabledValue).subscribe(
+      this.sessionService.modifySession(this.session.idSession, enonce, deadline, nomSession, disabledValue, argument).subscribe(
         data => {
         },
         err => console.log(),

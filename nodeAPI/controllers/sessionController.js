@@ -94,7 +94,7 @@ exports.addToSession = (req, res) => {
 exports.addSession = (req, res) => {
     if (!req.auth) return res.status(401).send();
     //if(!req.auth.role !== 1) return res.status(403).send();
-    Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession, (err, data) => {
+    Session.addSession(req.body.enonce, req.body.deadline, req.body.nomSession, req.body.argument, (err, data) => {
         if (err)
             res.status(500).send({
                 message:
@@ -111,7 +111,7 @@ exports.addSession = (req, res) => {
 exports.modifySession= (req, res) => {
     if (!req.auth) return res.status(401).send();
     //if(!req.auth.role !== 1) return res.status(403).send();
-    Session.modifySession(req.body.idSession, req.body.enonce, req.body.deadline, req.body.nomSession, req.body.disabled, (err, data) => {
+    Session.modifySession(req.body.idSession, req.body.enonce, req.body.deadline, req.body.nomSession, req.body.disabled, req.body.argument, (err, data) => {
         if (err)
             res.status(500).send({
                 message:

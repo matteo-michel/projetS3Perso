@@ -13,10 +13,11 @@ export class UploadFileService {
 
   constructor(private http: HttpClient, private tokenService: TokenStorageService, private userService: UserService) { }
 
-  upload(file: File, idSession: string): Observable<HttpEvent<any>> {
+  upload(file: File, idSession: string, argument: string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('idSession', idSession);
+    formData.append('argument', argument);
     formData.append('token', localStorage.getItem('token'));
     formData.append('file', file);
 

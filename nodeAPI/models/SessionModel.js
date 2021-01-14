@@ -150,8 +150,8 @@ Session.addToSession = (p_login, p_idSession, result) => {
 };
 
 
-Session.addSession = (p_enonce, p_deadline,p_nomSession,result) => {
-    mysql.query(`INSERT INTO session VALUES (0,"${p_enonce}","${p_deadline}","${p_nomSession}",0)`,
+Session.addSession = (p_enonce, p_deadline,p_nomSession,p_arguments,result) => {
+    mysql.query(`INSERT INTO session VALUES (0,"${p_enonce}","${p_deadline}","${p_nomSession}",0,"${p_arguments}")`,
         (err) => {
             if (err) {
                 console.log("error: ", err);
@@ -162,9 +162,9 @@ Session.addSession = (p_enonce, p_deadline,p_nomSession,result) => {
         });
 };
 
-Session.modifySession = (p_idSession, p_enonce, p_deadline, p_nomSession, p_disabled, result) => {
+Session.modifySession = (p_idSession, p_enonce, p_deadline, p_nomSession, p_disabled, p_arguments, result) => {
     mysql.query(`UPDATE session SET enonce = "${p_enonce}", deadline = "${p_deadline}",
-                nomSession = "${p_nomSession}", disabled = "${p_disabled}"
+                nomSession = "${p_nomSession}", disabled = "${p_disabled}", argument = "${p_arguments}"
                  WHERE idSession = "${p_idSession}"`,
         (err) => {
             if (err) {

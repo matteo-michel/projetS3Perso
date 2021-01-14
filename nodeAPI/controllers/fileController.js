@@ -48,10 +48,10 @@ const parse = (req, res) => {
     if(!req.auth) return res.status(401).send();
     const filePath = "session" + req.body.idSession + '/' + req.file.filename;
     const { exec } = require("child_process");
-    const filename = "Golomb.jar"
-    const arg = 4;
+    const arg = req.body.argument.replace(/\D*/g, '');
+    console.log(arg);
 
-    exec("java -jar ./jar/" + filePath +  " -m " + arg, (error, stdout, stderr) => {
+    exec("java -jar ./jar/" + filePath + " " + req.body.argument + "", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return res.status(500).send();
@@ -61,8 +61,7 @@ const parse = (req, res) => {
             return res.status(500).send();
         }
 
-        const fileTxt = req.file.originalname.replace(/.jar$/g, arg + '.txt').toLowerCase();
-        //console.log(req.file.originalname.replace(/.jar$/g, arg + '.txt'));
+        const fileTxt = req.file.originalname.replace(/.jar$/g, arg +'.txt').toLowerCase();
         if(!fs.existsSync(fileTxt)) {
             fs.unlinkSync(__basedir + "/jar/" + filePath);
             req.body.fileName = req.file.filename;
