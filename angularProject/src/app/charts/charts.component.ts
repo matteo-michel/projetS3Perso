@@ -80,17 +80,23 @@ export class ChartsComponent implements OnInit {
     const nodesList = [];
     const failsList = [];
     const userList = [];
+    const timeList = [];
     this.files.forEach((value) => {
       userList.push(value.login);
       const performances  = value.getElementForTable();
+      // @ts-ignore
+      const tampon = performances.time.replace(/,/g, '.');
       // @ts-ignore
       failsList.push(performances.fails);
       // @ts-ignore
       nodesList.push(performances.nodes);
       // @ts-ignore
       solutionList.push(performances.solutions);
+      // @ts-ignore
+      timeList.push(parseFloat(tampon));
     });
     this.chartOptions.xAxis.categories = userList;
+    this.chartOptions.series.push({name: 'Time', data: timeList});
     this.chartOptions.series.push({name: 'Fails', data: failsList});
     this.chartOptions.series.push({name: 'Solutions', data: solutionList});
     this.chartOptions.series.push({name: 'Nodes', data: nodesList});
